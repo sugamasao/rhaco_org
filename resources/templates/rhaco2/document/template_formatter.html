@@ -1,0 +1,491 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Templateのフォーマッタ</h2>
+	<p>
+		$tに予約されているフォーマッタ
+	</p>
+
+	<div class="xml_desc">
+		<h3>$t (Templf)</h3>
+		<p>
+
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>メソッド名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><a href="#map_url">map_url</a></td>
+				<td>handlerのマップ名を呼び出しているURLを生成する</td>
+			</tr>
+			<tr>
+				<td><a href="#package_method_url">package_method_url</a></td>
+				<td>handlerでpackageを呼び出してる場合にメソッド名でURLを生成する</td>
+			</tr>
+			<tr>
+				<td><a href="#match_pattern">match_pattern</a></td>
+				<td>マッチしたパターン（名）を返す</td>
+			</tr>
+			<tr>
+				<td><a href="#match_pattern_switch">match_pattern_switch</a></td>
+				<td>マッチしたパターンと$patternが同じなら$trueを、違うなら$falseを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#cond_switch">cond_switch</a></td>
+				<td> 真偽値により$trueまたは$falseを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#request_url">request_url</a></td>
+				<td>リクエストされたURLを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#referer">referer</a></td>
+				<td>refererを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#is_login">is_login</a></td>
+				<td>ログイン済みか</td>
+			</tr>
+			<tr>
+				<td><a href="#user">user</a></td>
+				<td>ログインユーザを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#media">media</a></td>
+				<td>アプリケーションのメディアのURLを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#url">url</a></td>
+				<td>アプリケーションのURLを返す</td>
+			</tr>
+			<tr>
+				<td><a href="#url">surl</a></td>
+				<td>アプリケーションのURLをhttpsで返す</td>
+			</tr>
+			<tr>
+				<td><a href="#query">query</a></td>
+				<td>query文字列に変換する</td>
+			</tr>
+			<tr>
+				<td><a href="#zerofill">zerofill</a></td>
+				<td>ゼロを桁数分前に埋める</td>
+			</tr>
+			<tr>
+				<td><a href="#number_format">number_format</a></td>
+				<td>数字を千位毎にグループ化してフォーマットする</td>
+			</tr>
+			<tr>
+				<td><a href="#counter">counter</a></td>
+				<td>カウンタ</td>
+			</tr>
+			<tr>
+				<td><a href="#df">df</a></td>
+				<td>フォーマットした日付を返す</td>
+			</tr>
+			<tr>
+				<td><a href="#html">html</a></td>
+				<td>HTMLエスケープされた文字列を返す</td>
+			</tr>
+			<tr>
+				<td><a href="#text">text</a></td>
+				<td>全てのタグを削除した文字列を返す</td>
+			</tr>
+			<tr>
+				<td><a href="#br2nl">br2nl</a></td>
+				<td>brタグを改行コードに変換</td>
+			</tr>
+			<tr>
+				<td><a href="#one_liner">one_liner</a></td>
+				<td>改行を削除(置換)する</td>
+			</tr>
+			<tr>
+				<td><a href="#trim_width">trim_width</a></td>
+				<td>文字列を丸める</td>
+			</tr>
+			<tr>
+				<td><a href="#htmlencode">htmlencode</a></td>
+				<td>htmlエンコードをする</td>
+			</tr>
+			<tr>
+				<td><a href="#htmldecode">htmldecode</a></td>
+				<td>htmlデコードをする</td>
+			</tr>
+			<tr>
+				<td><a href="#cdata">cdata</a></td>
+				<td>CDATA形式から値を取り出す</td>
+			</tr>
+			<tr>
+				<td><a href="#noop">noop</a></td>
+				<td>何もしない</td>
+			</tr>
+			<tr>
+				<td><a href="#primary">primary</a></td>
+				<td>primary型の値を返す</td>
+			</tr>
+			<tr>
+				<td><a href="#highlight">highlight</a></td>
+				<td> 文字列の構文ハイライト表示</td>
+			</tr>
+			<tr>
+				<td><a href="#trans">trans</a></td>
+				<td>国際化文字列を返す</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<a name="map_url"></a>
+	<div class="xml_desc">
+		<h3>map_url</h3>
+		<p>
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.map_url('map_name')}!!!">link</a>
+			<a href="!!!{$t.map_url('map_name2','abc')}!!!">link</a>
+		</pre>
+	</div>	
+
+	<a name="package_method_url"></a>
+	<div class="xml_desc">
+		<h3>package_method_url</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.package_method_url('map_name')}!!!">link</a>
+			<a href="!!!{$t.package_method_url('map_name2','abc')}!!!">link</a>
+		</pre>
+	</div>
+	
+	<a name="match_pattern"></a>
+	<div class="xml_desc">
+		<h3>match_pattern</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<rt:if param="!!!{$t.match_pattern()}!!!" value="abc">
+				<a href="{$t.map_url('def')}">def</a>
+			<rt:else />
+				<a href="{$t.map_url('abc')}">abc</a>
+			</rt:if>
+		</pre>
+	</div>
+	
+	<a name="match_pattern_switch"></a>
+	<div class="xml_desc">
+		<h3>match_pattern_switch</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<ul>
+				<li class="!!!{$t.match_pattern_switch('abc','on','off')}!!!">
+					<a href="{$t,map_url('abc')}">abc</a>
+				</li>
+				<li class="!!!{$t.match_pattern_switch('def','on','off')}!!!">
+					<a href="{$t,map_url('def')}">def</a>
+				</li>
+			</ul>
+		</pre>
+	</div>
+
+	<a name="cond_switch"></a>
+	<div class="xml_desc">
+		<h3>cond_switch</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<rt:loop param="object_list" var="obj">
+				<div class="!!!{$t.cond_switch($obj.is_abc(),'on','off')}!!!">{$obj.fm_abc()}</div>
+			</rt:loop>
+		</pre>
+	</div>
+
+	<a name="request_url"></a>
+	<div class="xml_desc">
+		<h3>request_url</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.request_url()}!!!">reload</a>
+		</pre>
+	</div>
+	
+	<a name="referer"></a>
+	<div class="xml_desc">
+		<h3>referer</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.referer()}!!!">back</a>
+		</pre>
+	</div>
+	
+	<a name="is_login"></a>
+	<a name="user"></a>
+	<div class="xml_desc">
+		<h3>is_login</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<rt:if param="!!!{$t.is_login()}!!!">
+				!!!{$t.user().nickname()}!!!
+			<rt:else />
+				<a href="{$t.map_url('login')}">login</a>
+			</rt:if>
+		</pre>
+	</div>
+	
+	<a name="media"></a>
+	<div class="xml_desc">
+		<h3>media</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<script>
+				document.xyz.src = "!!!{$t.media('image/abc.jpg')}!!!";
+			</script>
+			<img src="blank.png" name="xyz" />
+		</pre>
+	</div>
+	
+	<a name="url"></a>
+	<div class="xml_desc">
+		<h3>url</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.url('resources/abc.zip')}!!!">download abc</a>
+		</pre>
+	</div>
+
+	<a name="surl"></a>
+	<div class="xml_desc">
+		<h3>surl</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="!!!{$t.surl('signup')}!!!">signup</a>
+		</pre>
+	</div>
+	
+	<a name="query"></a>
+	<div class="xml_desc">
+		<h3>query</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<a href="?!!!{$t.query($abc,'abc')}!!!">signup</a>
+		</pre>
+	</div>
+	
+	<a name="zerofill"></a>
+	<div class="xml_desc">
+		<h3>zerofill</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			!!!{$t.zerofill($counter,10)}!!!
+		</pre>
+	</div>
+
+	<a name="number_format"></a>
+	<div class="xml_desc">
+		<h3>number_format</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			¥!!!{$t.number_format($price)}!!!
+		</pre>
+	</div>
+	
+	<a name="counter"></a>
+	<div class="xml_desc">
+		<h3>counter</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<rt:loop param="object_list" var="obj">
+				!!!{$t.counter('object_count')}!!!: {$obj->abc()}
+			</rt:loop>
+		</pre>
+	</div>
+	
+	<a name="count"></a>
+	<div class="xml_desc">
+		<h3>count</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			total: !!!{$t.count($object_list)}!!!
+		</pre>
+	</div>
+	
+	<a name="df"></a>
+	<div class="xml_desc">
+		<h3>df</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			date: !!!{$t.df($obj.abc(),'Y/m/d')}!!!
+		</pre>
+	</div>
+	
+	<a name="html"></a>
+	<div class="xml_desc">
+		<h3>html</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			summary: !!!{$t.html($obj.abc(),200,3,'..')}!!!
+		</pre>
+	</div>
+	
+	<a name="text"></a>
+	<div class="xml_desc">
+		<h3>text</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			summary: !!!{$t.text($obj.abc(),200,3,'..')}!!!
+		</pre>
+	</div>
+	
+	<a name="br2nl"></a>
+	<div class="xml_desc">
+		<h3>br2nl</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<textarea>!!!{$t.br2nl($obj.abc())}!!!</textarea>
+		</pre>
+	</div>
+	
+	<a name="one_liner"></a>
+	<div class="xml_desc">
+		<h3>one_liner</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			summary: !!!{$t.one_liner($obj.abc())}!!!
+		</pre>
+	</div>
+	
+	<a name="trim_width"></a>
+	<div class="xml_desc">
+		<h3>trim_width</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			summary: !!!{$t.trim_width($obj.abc(),30,'..')}!!!
+		</pre>
+	</div>
+	
+	<a name="htmlencode"></a>
+	<div class="xml_desc">
+		<h3>htmlencode</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.htmlencode($obj.abc())}!!!</div>
+		</pre>
+	</div>
+	
+	<a name="htmldecode"></a>
+	<div class="xml_desc">
+		<h3>htmldecode</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.htmldecode($obj.abc())}!!!</div>
+		</pre>
+	</div>
+	
+	<a name="cdata"></a>
+	<div class="xml_desc">
+		<h3>cdata</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.cdata($obj.abc())}!!!</div>
+		</pre>
+	</div>
+	
+	<a name="noop"></a>
+	<div class="xml_desc">
+		<h3>noop</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.noop($obj.abc())}!!!</div>
+		</pre>
+	</div>
+	
+	<a name="primary"></a>
+	<div class="xml_desc">
+		<h3>primary</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<select>
+				<rt:loop param="object_list" var="obj">
+					<option value="!!!{$t.primary($obj)}!!!">{$obj.abc()}</option>
+				</rt:loop>
+			</select>
+		</pre>
+	</div>
+	
+	<a name="highlight"></a>
+	<div class="xml_desc">
+		<h3>highlight</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.highlight($code)}!!!</div>
+		</pre>
+	</div>
+	
+	<a name="trans"></a>
+	<div class="xml_desc">
+		<h3>trans</h3>
+		<p>
+			
+		</p>
+		<pre trans="true">
+			<div>!!!{$t.trans('Welcome')}!!!</div>
+		</pre>
+	</div>
+</rt:block>
+
+
+
+	

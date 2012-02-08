@@ -1,0 +1,29 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>ライブラリとして利用してurlからbodyを表示する</h2>
+	<p>
+		YahooのトップをGETで取得する。<br />
+		検索文字列(p)に「rhaco」と入力し検索する。<br />
+		結果を表示する。<br />
+	</p>
+
+	<h3>coreのダウンロード</h3>
+	<p>
+		<a href="http://rhaco.org/download/core/rhaco2.php">rhaco2.php</a>をダウンロードする。
+	</p>
+
+	<div class="filename">yahoo_result.php</div>
+	<pre trans="true">
+		&lt;?php
+		!!!include("rhaco2.php");!!!
+		
+		$b = new Http();
+		$b->do_get("http://yahoo.co.jp/");
+		$b->vars("p","rhaco");
+		$b->submit();
+		print($b->body());
+	</pre>
+	<p>&nbsp;</p>
+</rt:block>
+
+	

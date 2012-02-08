@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>rhaco.org</title>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="bootstrap.min.css" rel="stylesheet">
+	<link href="google-code-prettify/prettify.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+<div class="topbar-wrapper" style="z-index: 5;">
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="container">
+          <a class="brand" href="{$t.map_url('index')}">rhaco.org</a>
+                    
+          <rt:comment>
+          <form class="pull-left" rt:ref="true">
+            <input type="text" name="q" placeholder="Search" />
+          </form>
+          </rt:comment>
+                    
+          <ul class="nav">
+			<li class="{$t.startswith_pattern_switch('rhaco3','active','inactive')}"><a href="{$t.map_url('rhaco3')}">rhaco3</a></li>
+			<li class="{$t.startswith_pattern_switch('rhaco2','active','inactive')}"><a href="{$t.map_url('rhaco2')}">rhaco2</a></li>
+			<li class="{$t.startswith_pattern_switch('rhaco1','active','inactive')}"><a href="{$t.map_url('rhaco1')}">rhaco1</a></li>
+			<li class="{$t.startswith_pattern_switch('simple','active','inactive')}"><a href="{$t.map_url('simple')}">simple</a></li>
+			<li class="{$t.startswith_pattern_switch('packager','active','inactive')}"><a href="{$t.map_url('packager')}">packager</a></li>
+          </ul>          
+        </div>
+      </div>
+    </div>
+</div>
+
+    <div class="container">
+      <div class="row">
+		<rt:block name="content">
+		</rt:block>
+	   </div>
+      <footer>
+      </footer>
+
+    </div> <!-- /container -->
+    <script src="google-code-prettify/prettify.js"></script>
+    <script>$(function () { prettyPrint() })</script>
+  </body>
+ <script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-3405663-7']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</html>

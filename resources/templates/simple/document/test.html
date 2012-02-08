@@ -1,0 +1,107 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>テスト</h2>
+	<p>
+		テストはdoctestで行います
+	</p>
+	<div class="xml_desc">
+		<a name="exe_test"></a>
+		<h4>テストの実行</h4>
+		<p>
+			テストの実行はdoctest.phpで行います。
+		</p>
+		<pre trans="true">
+			php doctest.php ファイルパス
+			php doctest.php ファイルパス -m メソッド名
+			php doctest.php ファイルパス -m メソッド名 -b メソッド中のブロック名
+			php doctest.php ファイルパス -i includeするファイルパス
+		</pre>
+	</div>
+
+	<div class="xml_desc">
+		<a name="funcs"></a>
+		<h4>テストで利用する検証用の関数</h4>
+		<table>
+			<thead>
+			<tr>
+				<th>関数名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>eq($expectation,$result)</td>
+				<td>$resultが$expectationが同じならば成功とする</td>
+			</tr>
+			<tr>
+				<td>neq($expectation,$result)</td>
+				<td>$resultが$expectationが同じならば失敗とする</td>
+			</tr>
+			<tr>
+				<td>success()</td>
+				<td>成功とする</td>
+			</tr>
+			<tr>
+				<td>fail()</td>
+				<td>失敗とする</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+
+	<div class="xml_desc">
+		<a name="lib_test"></a>
+
+		<h4>ライブラリのテスト</h4>
+		<p>
+			ライブラリのテストはメソッドの中、クラスの中に/***(*が３つ)〜*/のコメントブロックに記述します。<br />
+			コメントブロックの先頭に#(任意の文字列)と記述することで、テストブロックの名前を定義できます。<br />
+			自身のクラスを「self」と表現する事が可能です。
+		</p>
+		<div class="filename">Sample.php</div>
+		<pre trans="true">
+			&lt;?php
+			class Sample{
+				public function abc($str){
+					return '('.$str.')';
+					/***
+						$self = new self();
+						eq("(hoge)",$self->abc("hoge"));
+					 */
+					/***
+						!!!# fuga!!!
+						$self = new self();
+						eq("(fuga)",$self->abc("fuga"));
+					 */
+				}
+				static public function def($str){
+					return '('.$str.')';
+					/***
+						eq("(hoge)",self::def("hoge"));
+					 */
+				}
+				/***
+					eq("(hoge)",self::def("hoge"));
+					$self = new self();
+					eq("(fuga)",$self->abc("fuga"));
+				 */
+				 
+				/***
+					!!!# __setup__!!!
+					eq(true,true);
+				 */
+				/***
+					!!!# __teardown__!!!
+					eq(true,true);
+				 */
+			}
+		</pre>
+		<p>
+			クラスの中(メソッドの中ではなく)の __setup__ と __teardown__ は特別なテストブロックです。<br />
+			__setup__は全てのテストブロックの実行前に実行されます。<br />
+			__teardown__は全てのテストブロックの実行後に実行されます。
+		</p>
+	</div>
+</rt:block>
+	

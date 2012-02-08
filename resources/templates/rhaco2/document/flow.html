@@ -1,0 +1,100 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Flowの動作とモジュール呼出しタイミング</h2>
+
+
+	<div class="xml_desc">
+		<table>
+			<thead>
+			<tr>
+				<th>モジュール</th>
+				<th>説明</th>
+				<th>&nbsp;</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td nowrap>begin_flow_handle(Flow $f)</td>
+				<td>ハンドリングの前処理</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td nowrap>init_flow_handle(Flow $f)</td>
+				<td>ロジック実行時の初期処理</td>
+				<td>B</td>
+			</tr>
+			<tr>
+				<td nowrap>before_login_required(Flow $f)</td>
+				<td>ロジック実行時のuser[require=true]で未ログイン時のログイン処理の前処理</td>
+				<td>B</td>
+			</tr>
+			<tr>
+				<td nowrap>before_flow_handle(Flow $f)</td>
+				<td>ロジック実行時の前処理</td>
+				<td>B</td>
+			</tr>
+			<tr>
+				<td nowrap>after_flow_handle(Flow $f)</td>
+				<td>ロジック実行時の後処理</td>
+				<td>B</td>
+			</tr>
+
+			<tr>
+				<td nowrap>flow_handle_exception(Exception[] $e,Flow $f)</td>
+				<td>Flow処理で例外が発生した場合に実行する処理</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td nowrap>flow_gc(Flow $f)</td>
+				<td>ランダムに実行する処理</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td nowrap>flow_another_output(Flow $f)</td>
+				<td>Flow処理でtemplateが指定されていない場合に別の出力方法</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td nowrap>before_flow_print_template($str,Flow $f)</td>
+				<td>テンプレート出力の前処理</td>
+				<td>A</td>
+			</tr>
+			<tr>
+				<td nowrap>init_template($str,Template $t)</td>
+				<td>テンプレート生成の初期処理</td>
+				<td>A,B</td>
+			</tr>
+			<tr>
+				<td nowrap>before_block_template($str,Template $t)</td>
+				<td>ブロック処理をする前の処理、親テンプレートへの処理</td>
+				<td>A,B</td>
+			</tr>
+			<tr>
+				<td nowrap>before_template($str,Template $t)</td>
+				<td>テンプレート生成の前処理</td>
+				<td>A,B</td>
+			</tr>
+			<tr>
+				<td nowrap>after_template($str,Template $t)</td>
+				<td>テンプレート生成の前処理</td>
+				<td>A,B</td>
+			</tr>
+			<tr>
+				<td nowrap>before_exec_template($str,Template $t)</td>
+				<td>テンプレート実行の前処理</td>
+				<td>A,B</td>
+			</tr>
+			<tr>
+				<td nowrap>after_exec_template($str,Template $t)</td>
+				<td>テンプレート実行の後処理</td>
+				<td>A,B</td>
+			</tr>
+			</tbody>
+		</table>
+		
+		<pre trans="true" class="tips">
+			A: 前処理、後処理のFlow
+			B: URLによるハンドリングで実行されたFlow
+		</pre>
+	</div>
+</rt:block>

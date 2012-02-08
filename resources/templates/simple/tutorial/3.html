@@ -1,0 +1,33 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Httpクラスを利用する</h2>
+	<p>
+	</p>
+	
+	<h3>GETで取得する</h3>
+	<pre trans="true">
+		&lt;?php
+		include 'http.php';
+		$http = new Http('Mozilla/5.0');
+		$http->header('Referer','http://rhaco.org');
+		$http->vars('query','Http');
+		$http->do_get('http://rhaco.org/repository/3/lib');
+		
+		print($http->body());
+	</pre>
+	<p></p>
+	
+	<h3>POSTで取得する</h3>
+	<pre trans="true">
+		&lt;?php
+		include 'http.php';
+		$http = new Http('Mozilla/5.0');
+		$http->header('Referer','http://rhaco.org');
+		$http->vars('query','Http');
+		$http->do_post('http://rhaco.org/repository/3/lib');
+		
+		print($http->body());
+	</pre>
+	<p></p>
+
+</rt:block>

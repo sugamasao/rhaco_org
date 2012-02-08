@@ -1,0 +1,70 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>継承したhtmlを表示する</h2>
+	<p>
+		URL / でアクセスした場合にEnjoyを表示する<br />
+		URL /hello でアクセスした場合にHello Worldを表示する<br />	
+		URL /hello/tokyo でアクセスした場合にHello Tokyoを表示する<br />
+		それぞれへのリンクを表示する<br />
+	</p>
+
+	<h3>.htaccessの作成</h3>
+	<pre trans="true">
+		> php rhaco3.php -htaccess
+	</pre>
+	
+	<h3>org.rhaco.Flowのimport</h3>
+	<pre trans="true">
+		> php rhaco3.php -import org.rhaco.Flow
+	</pre>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		&lt;?php
+		include('rhaco3.php');
+		$flow = new \org\rhaco\Flow();
+		$flow->output(
+			array('apps'=>array(
+				''=>array('template'=>'index.html','name'=>'index'),
+				'hello'=>array('template'=>'hello.html','name'=>'hello'),
+				'hello/tokyo'=>array('template'=>'tokyo.html','name'=>'tokyo'),
+			))
+		);
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<ul>
+		<li><a href="!!!{$t.map_url('index')}!!!">index</a></li>
+		<li><a href="!!!{$t.map_url('hello')}!!!">hello</a></li>
+		<li><a href="!!!{$t.map_url('tokyo')}!!!">tokyo</a></li>
+		</ul>
+		&lt;rt:block name="content"&gt;
+		<h1>Enjoy</h1>
+		&lt;/rt:block&gt;
+		</body>
+		</html>
+	</pre>
+
+	<div class="filename">resources/templates/hello.html</div>
+	<pre trans="true">
+		!!!&lt;rt:extends href="./index.html" /&gt;!!!
+		!!!&lt;rt:block name="content"&gt;!!!
+		<h1>Hello</h1>
+		!!!&lt;rt:block name="locale"&gt;!!!
+		<h2>World</h2>
+		!!!&lt;/rt:block&gt;!!!
+		!!!&lt;/rt:block&gt;!!!
+	</pre>
+
+	<div class="filename">resources/templates/tokyo.html</div>
+	<pre trans="true">
+		!!!&lt;rt:extends href="./hello.html" /&gt;!!!
+		!!!&lt;rt:block name="locale"&gt;!!!
+		<h2>Tokyo</h2>
+		!!!&lt;/rt:block&gt;!!!
+	</pre>
+
+</rt:block>

@@ -1,0 +1,34 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>簡易HTTPサーバを利用する</h2>
+	<p>
+		org.rhaco.net.Runserver を利用しHTTPサーバを起動する
+	</p>
+	
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		php rhaco2.php !!!-new index!!!
+	</pre>
+	<p>&nbsp;</p>	
+
+	<h3>org.rhaco.net.Runserver をインポートする</h3>
+	<pre trans="true">
+		php rhaco2.php -import org.rhaco.net.Runserver
+	</pre>
+	<p>&nbsp;</p>
+
+	<h3>Runserver をポート8080で起動する</h3>
+	<pre trans="true">
+		> php rhaco2.php -runserver -port 8080
+		
+		Development server is running at !!!http://localhost:8080!!!
+		Quit the server with !!!CONTROL-C.!!!
+	</pre>
+	<p>&nbsp;</p>
+	
+	<pre trans="true" class="tips">
+		Runserver は control + c で終了します。
+	</pre>
+	<p>&nbsp;</p>
+</rt:block>
+

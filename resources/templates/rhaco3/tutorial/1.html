@@ -1,0 +1,116 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>SQLiteで簡単な掲示板を作る</h2>
+	<p>
+	</p>
+
+	<h3>データベースの作成</h3>
+	<div class="filename">create.php</div>
+	<pre trans="true">
+		&lt;?php
+		include('rhaco3.php');
+		$dbc = new \org\rhaco\store\db\Dbc(
+						!!!'{"type":"org.rhaco.store.db.module.Sqlite","dbname":"board"}'!!!
+						);
+		$dbc->query('create table board('
+					.'id integer primary key autoincrement'
+					.',name text,comment text,created_at text)'
+				);
+	</pre>
+	<p></p>
+	
+	<div>必要なライブラリのインポート</div>
+	<pre trans="true" class="tips">
+		php rhaco3.php -import
+	</pre>
+	<p></p>
+	
+	<div>データベースの作成</div>
+	<pre trans="true" class="tips">
+		php create.php
+	</pre>
+	<p>
+		SQLiteはデータベースファイルと同階層に一時ファイルを作成するのでフォルダにも権限が必要です。
+	</p>
+
+	<h3>掲示板の作成</h3>
+	<div class="filename">index.php</div>	
+	<pre trans="true">
+		&lt;?php
+		include('rhaco3.php');
+		\org\rhaco\Conf::set('org.rhaco.store.db.Dao'
+								,!!!'Board'!!!
+								,!!!'{"type":"org.rhaco.store.db.module.Sqlite","dbname":"board"}!!!'
+							);
+		/**
+		 * !!!@var serial $id!!!
+		 * !!!@var string $name!!!
+		 * !!!@var text $comment!!!
+		 * !!!@var timestamp $created_at @{"auto_now_add":true}!!!
+		 */
+		class !!!Board!!! extends \org\rhaco\store\db\Dao{
+			protected $id;
+			protected $name;
+			protected $comment;
+			protected $created_at;
+		}
+		
+		$req = new \org\rhaco\Request();
+		if($req->is_post()){
+			$obj = new Board();
+			$obj->name($req->in_vars("name"));
+			$obj->comment($req->in_vars("comment"));
+			!!!$obj->save();!!!
+		}
+		
+		$paginator = new \org\rhaco\Paginator(5,$req->in_vars("page",1));
+		$template = new \org\rhaco\Template();
+		$template
+			->!!!set_object_module(new \org\rhaco\flow\module\HtmlFilter())!!!
+			->!!!set_object_module(new \org\rhaco\flow\module\Paginator())!!!;
+		$template->cp($req);
+		$template->vars("object_list"
+			,!!!Board::find_all($paginator,\org\rhaco\store\db\Q::order('-id'))!!!
+		);
+		$template->vars("paginator",$paginator);
+		$template->output(__FILE__);
+		?&gt;
+		
+		&lt;rt:template&gt;
+		<html>
+		<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		</head>
+		<body>
+			<form method="post">
+				名前:<input type="text" name="name" rt:ref="true" /><br />
+				コメント:<textarea name="comment"></textarea><br />
+				<input type="submit" value="投稿" />
+			</form>
+			&lt;rt:loop param="object_list" var="obj"&gt;
+			<div>
+				{$obj.name()} [{$obj.fm_created_at()}]
+			</div>
+			<pre>
+			{$obj.comment()}
+			</pre>
+			<hr />
+			&lt;/rt:loop&gt;
+			
+			<div class="paginator">
+				&lt;rt:paginator /&gt;
+			</div>
+		</body>
+		</html>
+		&lt;/rt:template&gt;
+	</pre>
+	<p></p>
+	
+	<div>必要なライブラリのインポート</div>
+	<pre trans="true" class="tips">
+		php rhaco3.php -import
+	</pre>
+	<p></p>
+</rt:block>
+
+	

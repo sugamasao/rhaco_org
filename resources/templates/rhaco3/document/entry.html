@@ -1,0 +1,21 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>エントリーポイント</h2>
+	<p>
+	</p>
+	
+	<pre class="tips" trans="true">
+		&lt;?php
+		include('rhaco3.php');
+		
+		!!!$flow = new \org\rhaco\Flow();!!!
+		$flow->output(array(
+			!!!patterns!!!=>array(
+				''=>array(name=>'index',template=>'index.html')
+				,'abc'=>array(name=>'a',template=>'abc.html')
+				,'def'=>array(name=>'b',template=>'def.html')
+		)));
+	</pre>
+	<p></p>
+	
+</rt:block>

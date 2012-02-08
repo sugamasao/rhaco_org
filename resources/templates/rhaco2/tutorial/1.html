@@ -1,0 +1,33 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>htmlを表示する</h2>
+	<p>
+		URL / でアクセスした場合にresources/template/index.htmlを表示する
+	</p>
+	
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		> php rhaco2.php -new index
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<h1>Enjoy</h1>
+		</body>
+		</html>
+	</pre>
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				!!!<map url="" template="index.html" />!!!
+			</handler>
+		</app>
+	</pre>
+</rt:block>
+
+	

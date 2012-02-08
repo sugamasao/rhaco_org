@@ -1,0 +1,41 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>テンプレートで変数のHTMをエスケープする</h2>
+	<p>
+		org.rhaco.flow.module.HtmlFilter を利用しHTMLをエスケープする
+	</p>
+	
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		php rhaco2.php !!!-new index!!!
+	</pre>
+	<p>&nbsp;</p>	
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				!!!<module class="org.rhaco.flow.module.HtmlFilter" />!!!
+				<map url="" template="index.html" />
+			</handler>
+		</app>
+	</pre>
+	<p>&nbsp;</p>
+	
+	<div class="filename">index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<form method="post">
+			<textarea name="!!!hoge!!!" rt:ref="true"></textarea><br />
+			<input type="submit" />
+		</form>
+		<hr />
+		!!!{$hoge}!!!
+		</body>
+		</html>
+	</pre>
+	<p>&nbsp;</p>
+</rt:block>
+

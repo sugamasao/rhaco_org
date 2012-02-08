@@ -1,0 +1,24 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Feedを取得して全てのタグを削除して表示する</h2>
+	<p>
+		２つのFeedを取得して１つにまとめる<br />
+		取得したFeedからタグを取り除く<br />	
+		Atom形式で出力する<br />
+	</p>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			!!!<invoke class="org.rhaco.net.xml.Feed" method="do_read">!!!
+				<arg value="http://twitter.com/toptweets_ja/favorites" />
+				<arg value="http://gdata.youtube.com/feeds/base/standardfeeds/recently_featured" />
+			!!!</invoke>!!!
+			!!!<invoke class="org.rhaco.net.xml.FeedConverter" method="strip_tags" />!!!
+			!!!<invoke method="output" />!!!
+		</app>
+	</pre>
+</rt:block>
+
+	

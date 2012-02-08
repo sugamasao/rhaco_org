@@ -1,0 +1,96 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>ライブラリを利用してブログを作成する</h2>
+	<p>
+		既存のライブラリを利用してブログアプリケーションを作成する<br />
+		データベースは作成済みとする<br />
+		URL / でブログを表示する<br />
+		URL /admin で管理画面を表示する<br />
+		ブログのタイトルは「blog sample」<br />
+		ブログのサマリは「sample sample」<br />
+	</p>
+
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		> php rhaco2.php -new index
+	</pre>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app !!!nomatch_redirect="/"!!!>
+			!!!<handler class="com.tokushimakazutaka.flow.parts.Developer" url="admin">!!!
+				!!!<module class="org.rhaco.flow.module.SimpleAuth" />!!!
+			!!!</handler>!!!
+			
+			!!!<handler class="com.tokushimakazutaka.flow.parts.Blog" url="">!!!
+				!!!<var name="title" value="blog sample" />!!!
+				!!!<var name="summary" value="sample sample" />!!!
+			!!!</handler>!!!
+		</app>
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>ライブラリのimport</h3>
+	<pre trans="true">
+		> php rhaco2.php -import
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>setupの確認</h3>
+	<pre trans="true">
+		> php rhaco2.php
+	</pre>
+	<p>
+		Daoがimportされているので、-create_table, -dao_config 追加されています。
+	</p>
+
+	<h3>モデルの確認</h3>
+	<pre trans="true">
+		> php rhaco2.php -dao_config
+		
+		`org.rhaco.storage.db.Dbc` config list:
+		    [-] com.tokushimakazutaka.flow.parts.Blog
+		
+		   ex..
+		    def("org.rhaco.storage.db.Dbc@com.tokushimakazutaka.flow.parts.Blog"
+		        ,"type=org.rhaco.storage.db.module.DbcMysql,host=localhost
+		        ,dbname=DATABASE_NAME,user=USER_NAME,password=USER_PASSWORD,encode=utf8");
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>接続情報を定義する</h3>
+	<p>
+		`ex.. def("...`を参考に __settings__.php に 接続情報を記述します。
+	</p>	
+
+	<h3>テーブルを作成する</h3>
+	<pre trans="true">
+		> php rhaco2.php -create_table com.tokushimakazutaka.flow.parts.Blog -execute
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>定義情報の確認</h3>
+	<pre trans="true">
+		> php rhaco2.php -def
+		Define list:
+		    [-] com.tokushimakazutaka.flow.parts.Blog@atom : (string[]) string title,string base url
+		    [-] org.rhaco.flow.module.SimpleAuth@auth      : (string) string ユーザ,string md5(sha1(パスワード))
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>認証情報の定義</h3>
+	<pre trans="true">
+		def("org.rhaco.flow.module.SimpleAuth@auth","user_name",md5(sha1("password")));
+	</pre>
+	<p>__settings__.phpに追記します。</p>
+	
+	<h3>確認</h3>
+	<p>
+		URL	/ にアクセスして表示される事を確認します。<br />
+		URL /admin にアクセスし認証情報で定義したuser_name, passowrdでログインします。<br />
+		model の BlogEntry 、 create で記事を追加出来る事を確認します。<br />
+	</p>
+</rt:block>
+
+	

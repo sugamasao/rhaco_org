@@ -1,0 +1,67 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>セッションにDBを使用する</h2>
+	<p>
+	</p>
+
+	<div>アプリケーションの作成</div>
+	<pre trans="true" class="tips">
+		php rhaco2.php -new
+	</pre>
+	<p></p>
+	
+	<div>セッションモジュールのインポート</div>
+	<pre trans="true" class="tips">
+		php rhaco2.php -import org.rhaco.flow.module.SessionDao
+	</pre>
+	<p></p>	
+
+	<div class="filename">libs/Sample.php</div>
+	<pre trans="true">
+		&lt;?php
+		class Sample extends Flow{
+			public function index(){
+				$cnt = $this->in_sessions('cnt',0);
+				$cnt++;
+				$this->sessions('cnt',$cnt);
+				
+				$this->vars('cnt',$cnt);
+			}
+		}
+	</pre>
+	<p></p>
+
+	<h3>セッションモジュールの定義</h3>
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app !!!session="org.rhaco.flow.module.SessionDao"!!!>
+			<handler>
+				<map url="" template="index.html" !!!class="Sample" method="index"!!! />
+			</handler>
+		</app>
+	</pre>
+	<p></p>
+
+	<h3>DBの接続設定</h3>
+	<div class="filename">__settings__.php</div>
+	<pre trans="true">
+		&lt;?php
+		....
+		....
+		// Mysqlを利用する場合
+		def("org.rhaco.storage.db.Dbc@org.rhaco.flow.module.SessionDao"
+			,"type=org.rhaco.storage.db.module.DbcMysql"
+				.",dbname=sample,user=root,password=root,encode=utf8");
+	</pre>
+	<p></p>	
+	
+	<h3>create table の表示</h3>
+	<div class="filename">結果を参考にcreate tableを実行してください</div>
+	<pre trans="true" class="tips">
+		php rhaco2.php -create_table org.rhaco.flow.module.SessionDao
+	</pre>
+	<p></p>	
+
+</rt:block>
+	

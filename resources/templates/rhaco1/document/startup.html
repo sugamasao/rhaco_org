@@ -1,0 +1,41 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>スタートアップ</h2>
+	<p>
+		アプリケーションのひな形を作成します
+	</p>
+
+	<div class="xml_desc">
+		<h3>rhaco1のダウンロード</h3>
+		<p>
+			<a href="{$t.map_url('download','core/rhaco1.tgz')}">こちら</a>よりダウンロードし解凍します。配置場所はどこでもかまいません。
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>アプリケーションセットアップの準備</h3>
+		<p>
+			解凍したrhaco1からsetup.phpをアプリケーションを配置するフォルダにコピーします。(DocumentRoot等)
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>アプリケーションセットアップの実行</h3>
+		<p>		
+			アプリケーションを配置するフォルダにコピーしたsetup.phpをブラウザから実行します。<br />
+			するとrhaco1のファイル「Rhaco.php」が配置されたフォルダの場所を聞いてくるのでフォルダのフルパスを入力しsetします。<br />
+			セットアップ画面が表示されましたね、この時最低限必要なファイルが生成されています。(<a href="{$t.map_url('rhaco1_document','appdir.html')}">アプリケーションのファイル構成</a>)<br />
+			中でもsetup/project.xmlはセットアップを構成し重要なファイルです。(<a href="{$t.map_url('rhaco1_document','project_xml.html')}">アプリケーションXMLの構成</a>)
+		</p>
+		<pre trans="true" class="tips">
+			http://loacalhost/setup.php
+		</pre>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>アプリケーションセットアップ</h3>
+		<p>
+			次回からsetup.phpを実行するとセットアップ画面が表示されアプリケーションの設定やテスト、単純なDBの操作等を行えます。
+		</p>
+	</div>
+</rt:block>

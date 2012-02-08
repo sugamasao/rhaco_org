@@ -1,0 +1,105 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>SQLiteで簡単な掲示板を作る</h2>
+	<p>
+	</p>
+
+	<h3>初期処理</h3>
+	<p>
+		rhacoを<a href="{$t.map_url('rhaco1')}">rhaco1</a>からダウンロードして解凍します。<br />
+		解凍したrhacoのフォルダ直下にあるsetup.phpを掲示板を作成するフォルダにコピーします。<br />
+		ブラウザからsetup.phpを実行するとセットアップ画面が表示します。
+		[settings] settingボタン押下します。<br />
+		生成されたファイル群の中にあるsetup/project.xmlを編集します。<br />
+	</p>
+	
+	<h3>データベースの作成</h3>
+	<div class="filename">setup/project.xml</div>
+	<pre trans="true">
+		<project rhacover="1.6.1" version="0.0.1" name="board">
+		    <database name="board">
+		        <table name="board">
+		            <column name="id" />
+		            <column name="name" />
+		            <column name="comment" type="text" />
+		            <column name="created" type="timestamp" default="sysdate" />
+		        </table>
+		    </database>
+		</project>
+	</pre>
+	<p>
+		ブラウザからsetup.phpを実行しセットアップ画面を表示します。<br />
+		[settings] データベースの設定 [BOARD] で 「データベースサーバ」でSQliteを選択します。<br />
+		[settings] settingボタン押下します。<br />
+		[database] テーブル作成 で作成ボタン押下します。(boardというSQLiteのファイルが作成されます)<br />
+		SQLiteはデータベースファイルと同階層に一時ファイルを作成するのでフォルダにも権限が必要です。
+	</p>
+
+	<h3>掲示板の作成</h3>
+	<div class="filename">index.php</div>	
+	<pre trans="true">
+		&lt;?php
+		require_once '__init__.php';
+		Rhaco::import('network.http.Request');
+		Rhaco::import("tag.HtmlParser");
+		Rhaco::import("database.DbUtil");
+		Rhaco::import("generic.model.Paginator");
+		Rhaco::import("model.Board");
+		
+		$db = new DbUtil(Board::connection());
+		$req = new Request();
+		if($req->isPost()){
+			$obj = new Board();
+			$obj->setName($req->getVariable("name"));
+			$obj->setComment($req->getVariable("comment"));
+			$obj->save($db);
+		}
+		$paginator = new Paginator();
+		$paginator->setLimit(5);
+		$paginator->setPage($req->getVariable("page",1));
+		
+		$template = new HtmlParser();
+		$template->setVariable($req->getVariable());
+		$template->setVariable("object_list",
+			$db->select(
+				new Board()
+				,new C(Q::pager($paginator),Q::orderDesc(Board::columnId()))
+			)
+		);
+		$template->setVariable("paginator",$db->getPaginator());
+		print($template->read(__FILE__));
+		exit;
+		?&gt;
+		
+		&lt;rt:template&gt;
+		<html>
+		<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		</head>
+		<body>
+		  <form method="post">
+		    名前:<input type="text" name="name" rt:reference="true" /><br />
+		    コメント:<textarea name="comment"></textarea><br />
+		    <input type="submit" value="投稿" />
+		  </form>
+		  <rt:loop param="object_list" var="obj">
+		  <div>
+		    {$obj.getName()} [{$obj.formatCreated()}]
+		  </div>
+		  <pre>
+		  {$obj.getComment()}
+		  </pre>
+		  <hr />
+		  </rt:loop>
+		  
+		  <div class="paginator">
+		    <rt:pager param="paginator" />
+		  </div>
+		</body>
+		</html>
+		&lt;/rt:template&gt;
+	</pre>
+	<p></p>
+</rt:block>
+
+	

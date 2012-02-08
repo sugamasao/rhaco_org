@@ -1,0 +1,67 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>入力された値によってテンプレートを切り替える</h2>
+	<p>
+		submitされたら指定のカラーのテンプレートに切り替える
+	</p>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				<map url="" class="ColorFlow" method="index" template="index.html" />
+			</handler>
+		</app>
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<form>
+			<input type="submit" name="color" value="red" />
+			<input type="submit" name="color" value="blue" />
+			<input type="submit" name="color" value="green" />
+		</form>
+		&lt;rt:block name="color"&gt;
+			<p style="background-color: #888888;width: 200px;height: 100px;">&nbsp;</p>
+		&lt;/rt:block&gt;
+		</body>
+		</html>
+	</pre>
+
+	<div class="filename">resources/templates/color/red.html</div>
+	<pre trans="true">
+		&lt;rt:block name="color"&gt;
+			<p style="background-color: !!!#ff0000;!!!width: 200px;height: 100px;">&nbsp;</p>
+		&lt;/rt:block&gt;
+	</pre>
+	
+	<div class="filename">resources/templates/color/green.html</div>
+	<pre trans="true">
+		&lt;rt:block name="color"&gt;
+			<p style="background-color: !!!#00ff00;!!!width: 200px;height: 100px;">&nbsp;</p>
+		&lt;/rt:block&gt;
+	</pre>
+	
+	<div class="filename">resources/templates/color/blue.html</div>
+	<pre trans="true">
+		&lt;rt:block name="color"&gt;
+			<p style="background-color: !!!#0000ff;!!!width: 200px;height: 100px;">&nbsp;</p>
+		&lt;/rt:block&gt;
+	</pre>
+	
+	<div class="filename">libs/ColorFlow.php</div>
+	<pre trans="true">
+		&lt;?php
+		class ColorFlow extends Flow{
+			public function index(){
+				if($this->is_vars("color")){
+					!!!$this->put_block(sprintf("color/%s.html",$this->in_vars("color")));!!!
+				}
+			}
+		}
+	</pre>
+</rt:block>
+

@@ -1,0 +1,35 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>htmlを表示する</h2>
+	<p>
+		URL / でアクセスした場合にresources/template/index.htmlを表示する
+	</p>
+	
+	<h3>org.rhaco.Flowのimport</h3>
+	<pre trans="true">
+		> php rhaco3.php -import org.rhaco.Flow
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<h1>Enjoy</h1>
+		</body>
+		</html>
+	</pre>
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		&lt;?php
+			include('rhaco3.php');
+			$flow = new \org\rhaco\Flow();
+			$flow->output(
+				array('patterns'=>array(
+					''=>array('template'=>'index.html')
+				))
+			);
+	</pre>
+</rt:block>
+
+	

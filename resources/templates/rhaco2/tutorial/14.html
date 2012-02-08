@@ -1,0 +1,53 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>クッキーを利用する</h2>
+	<p>
+		クッキーを利用したカウンタ
+	</p>
+
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		php setup.php !!!-new index!!!
+	</pre>
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				<map url="" class="SampleFlow" method="index" template="index.html" />
+			</handler>
+		</app>
+	</pre>
+	
+	<div class="filename">libs/SampleFlow.php</div>
+	<pre trans="true">
+		&lt;?php
+		class SampleFlow extends Flow{
+			public function index(){
+				if($this->is_vars("reset")){
+					!!!$this->delete_cookie("count");!!!
+				}
+				$count = $this->in_vars("count",0);
+				$count++;
+				
+				!!!$this->vars("count",$count);!!!
+				!!!$this->write_cookie("count");!!!
+			}
+		}
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		{$count}
+		<form method="post">
+			<input type="submit" name="reset" value="reset" />
+			<input type="submit" name="add" value="+1" />
+		</form>
+		</body>
+		</html>
+	</pre>
+</rt:block>
+

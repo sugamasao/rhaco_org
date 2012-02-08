@@ -1,0 +1,46 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>アプリケーションのファイル構成</h2>
+	<p>
+		標準的な構成は以下になりますが、セットアップにより別の場所に配置する事が可能になるものがあります。
+	</p>
+
+	<div class="xml_desc">
+		<a name="dir"></a>
+		<ul class="dir">
+			<li>library/ - ライブラリ群</li>
+			<li>resources/</li>
+			<li>
+				<ul>
+					<li>locale/ - <span>国際化ファイル群</span></li>
+					<li>
+						<ul>
+							<li>messages/ - <span>国際化メッセージファイル(po,mo)群</span></li>
+						</ul>
+					</li>
+					<li>media/ - <span>画像ファイルやCSSファイル等</span></li>
+					<li><a href="{$t.map_url('rhaco1_document','template.html')}">templates/</a> - <span>html等のテンプレートファイル</span></li>
+				</ul>
+			</li>
+			<li>setup/ - <span>セットアップ関連ファイル群</span></li>
+			<li>
+				<ul>
+					<li>po/ - <span>国際化ファイルテンプレート群</span></li>
+					<li><a href="{$t.map_url('rhaco1_document','project_xml.html')}">project.xml</a> - <span>アプリケーションXML</span></li>
+				</ul>
+			</li>
+			<li>work/ - <span>ワーキングファイル群</span></li>
+			<li>
+				<ul>
+					<li>log/ - <span>ログファイル群</span></li>
+				</ul>
+			</li>
+			<li><a href="{$t.map_url('rhaco1_document','006_setup___init___php.html')}">__init__.php</a> - <span>設定ファイル</span></li>
+			<li><a href="{$t.map_url('rhaco1_document','006_setup___settings___php.html')}">__settings__.php</a> - <span>設定ファイル ( ローカル設定 ) </span></li>
+			<li><a href="{$t.map_url('rhaco1_document','006_setup_setup_framework.html')}">setup.php</a> - <span>セットアップ実行ファイル</span></li>
+			<li><a href="{$t.map_url('rhaco1_document','entry.html')}">index.php</a> - <span>エントリーポイント</span></li>
+		</ul>
+	</div>
+
+</rt:block>
+	

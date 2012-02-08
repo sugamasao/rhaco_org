@@ -1,0 +1,99 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Templateにモジュールを追加してタグを拡張する</h2>
+	<p>
+	</p>
+	
+	<h3>オリジナルタグのモジュールの作成</h3>
+	<div class="filename">libs/OriginalModule.php</div>
+	<pre trans="true">
+		&lt;?php
+		class OriginalModule{
+			public function before_template(&$src){
+				while(Tag::setof($tag,$src,'original:pre')){
+					$value = $tag->value();
+					$value = preg_replace("/###"(.+?)###/ms"
+										,"<span style=\"color:red;\">\\1</span>",$value);
+					$value = str_replace("\t","&nbsp;&nbsp;",$value);
+					$src = str_replace($tag->plain(),'<pre>'.$value.'</pre>',$src);
+				}
+			}
+		}
+	</pre>
+	<p></p>
+
+	<h3>タグ拡張のモジュールの作成</h3>
+	<div class="filename">libs/OriginalModule.php</div>
+	<pre trans="true">
+		&lt;?php
+		class ReplaceModule{
+			public function before_template(&$src){
+				if(Tag::setof($tag,$src,'body')){
+					foreach($tag->in(array("pre")) as $b){
+						if($b->in_param("trans") == "true"){
+							$b->rm_param("trans");
+							$value = preg_replace("/###(.+?)###/ms"
+										,"<span style=\"color:blue;\">\\1</span>",$b->value());
+							$value = str_replace("\t","&nbsp;&nbsp;",$value);
+							$b->value($value);
+							$src = str_replace($b->plain(),$b->get(),$src);
+						}
+					}
+				}
+			}
+		}
+	</pre>
+	<p></p>
+	
+	<h3>モジュールのインポート</h3>
+	<pre trans="true" class="tips">
+		php rhaco2.php -import org.rhaco.flow.module.HtmlFilter
+	</pre>
+	<p></p>	
+	
+	<h3>エントリ</h3>
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		&lt;?php
+		include('rhaco2.php');
+		$template = new Template();
+		!!!$template->add_module(R('org.rhaco.flow.module.HtmlFilter'));!!!
+		!!!$template->add_module(R('OriginalModule'));!!!
+		!!!$template->add_module(R('ReplaceModule'));!!!
+		$template->vars('abc','<script></script>');
+		$template->output(__FILE__);
+		?&gt;
+		&lt;rt:template&gt;
+		<html>
+		<head>
+			<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		</head>
+		<body>
+		{$abc}
+		
+		!!!<original:pre>!!!
+			ここの文字列は###整形###されて表示される
+			２行目の文字列
+		!!!</original:pre>!!!
+		
+		!!!<pre trans="true">!!!
+			ここの文字列は###整形###されて表示される
+			２行目の文字列
+		!!!</pre>!!!
+		
+		</body>
+		</html>
+		&lt;/rt:template&gt;
+	</pre>
+	<p></p>
+	
+	
+	<h3>Templateで利用できるモジュール名の一覧</h3>
+	<pre trans="true" class="tips">
+		php rhaco2.php -man Template
+	</pre>
+	<p>
+		Modules defined hereでモジュールの確認ができます
+	</p>		
+</rt:block>
+	

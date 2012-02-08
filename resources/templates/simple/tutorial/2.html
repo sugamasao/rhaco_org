@@ -1,0 +1,142 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>SimpleXMLElementとSimpleTag(<a href="{$t.map_url('simple_list')}">simple_tag.php</a>)の比較<br />(PHP4)</h2>
+	<p>
+		SimpleTag(simple_tag.php)は<a href="{$t.map_url('rhaco1')}">rhaco1</a>のSimpleTagと同等のライブラリです。
+	</p>
+
+	<pre trans="true">
+		<?xml version='1.0' standalone='yes'?>
+		<movies>
+		 <movie>
+		  <title>PHP: Behind the Parser</title>
+		  <characters>
+		   <character>
+		    <name>Ms. Coder</name>
+		    <actor>Onlivia Actora</actor>
+		   </character>
+		   <character>
+		    <name>Mr. Coder</name>
+		    <actor>El ActÓr</actor>
+		   </character>
+		  </characters>
+		  <plot>
+		   So, this language. It's like, a programming language. Or is it a
+		   scripting language? All is revealed in this thrilling horror spoof
+		   of a documentary.
+		  </plot>
+		  <great-lines>
+		   <line>PHP solves all my web problems</line>
+		  </great-lines>
+		  <rating type="thumbs">7</rating>
+		  <rating type="stars">5</rating>
+		 </movie>
+		</movies>
+	</pre>
+	<p></p>
+	
+	<h3>&lt;plot&gt;を取得する</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		echo $xml->movie[0]->plot; // "So this language. It's like..."
+		echo "\n";
+		
+		SimpleTag::setof($xml,$xmlstr);
+		echo $xml->f("movie[0].plot.value()");
+		echo "\n";
+	</pre>
+	<p></p>
+	
+	<h3>&lt;line&gt;を取得する</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		echo $xml->movie->{'great-lines'}->line; // "PHP solves all my web problems"
+		echo "\n";
+		
+		SimpleTag::setof($xml,$xmlstr);
+		echo $xml->f("movie.great-lines.line.value()");
+		echo "\n";
+	</pre>
+	<p></p>
+	
+	<h3>ユニークでない要素にアクセスする</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		foreach ($xml->movie as $movie) echo $movie->plot."\n";
+		echo "\n";
+		
+		SimpleTag::setof($xml,$xmlstr);
+		foreach($xml->getIn("movie") as $movie) echo $movie->f("plot.value()");
+		echo "\n";
+	</pre>
+	<p></p>
+	
+	<h3>属性を使用する</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		foreach ($xml->movie[0]->rating as $rating) {
+		    switch((string) $rating['type']) {
+			    case 'thumbs':
+			        echo $rating.' thumbs up'."\n";
+			        break;
+			    case 'stars':
+			        echo $rating.' stars'."\n";
+			        break;
+		    }
+		}
+		
+		SimpleTag::setof($xml,$xmlstr);
+		foreach($xml->f("movie[0].in(rating)") as $rating){
+		    switch($rating->param("type")) {
+		      case 'thumbs':
+		          echo $rating->value().' thumbs up'."\n";
+		          break;
+		      case 'stars':
+		          echo $rating->value().' stars'."\n";
+		          break;
+		    }
+		}
+		echo "\n";
+	</pre>
+	<p></p>
+	
+	<h3>要素および属性をテキストと比較する</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		if ((string) $xml->movie->title == 'PHP: Behind the Parser') {
+		    print 'My favorite movie.';
+		}
+		htmlentities((string) $xml->movie->title);
+		echo "\n";
+		
+		SimpleTag::setof($xml,$xmlstr);
+		if ($xml->f("movie.title.value()") == 'PHP: Behind the Parser') {
+		    print 'My favorite movie.';
+		}
+		htmlentities($xml->f("movie.title.value()"));
+		echo "\n";
+	</pre>
+	<p></p>
+	
+	<h3>&lt;character&gt;をすべて取得する</h3>
+	<pre trans="true">
+		&lt;?php
+		$xml = new SimpleXMLElement($xmlstr);
+		foreach ($xml->xpath('//character') as $character) {
+		    echo $character->name.'played by '.$character->actor."\n";
+		}
+		echo "\n";
+		
+		SimpleTag::setof($xml,$xmlstr);
+		foreach ($xml->getIn("character") as $character) {
+		    echo $character->f("name.value()").'played by '.$character->f("actor.value()")."\n";
+		}
+		echo "\n";
+	</pre>
+	<p></p>
+</rt:block>

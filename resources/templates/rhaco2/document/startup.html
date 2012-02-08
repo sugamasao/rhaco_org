@@ -1,0 +1,110 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>スタートアップ</h2>
+	<p>
+	</p>
+
+	<div class="xml_desc">
+		<h3>rhaco2のダウンロード</h3>
+		<p>
+			<a href="{$t.map_url('download','core/rhaco2.php')}">こちら</a>よりダウンロードします。エントリポイントと同じパスに配置します。
+		</p>
+	</div>
+
+	<p>
+		アプリケーションの開発、利用はrhaco2.phpからはじまります。<br />
+		主要な機能の他にライブラリが追加されるとセットアップの機能が増える場合があります。
+	</p>
+	<pre trans="true" class="tips">
+	php rhaco2.php
+	</pre>
+	<p></p>
+	
+	<div class="xml_desc">
+		<a name="setup_help"></a>
+		<h3>セットアップの説明を表示します</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>オプション</th>
+				<th>内容</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>-help import</td>
+				<td>-importの説明を表示します</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="setup_man"></a>
+		<h3>標準セットアップ</h3>
+		<p>
+			オプションを指定せずにrhaco2.phpを実行すると一覧が表示されます。
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>オプション</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>clean</td>
+				<td>vendorsを削除しライブラリをimportする</td>
+			</tr>
+			<tr>
+				<td>config</td>
+				<td>アプリケーションの設定を変更する</td>
+			</tr>
+			<tr>
+				<td>def</td>
+				<td>定義名のリスト</td>
+			</tr>
+			<tr>
+				<td>gettext</td>
+				<td>po,moファイルを生成する</td>
+			</tr>
+			<tr>
+				<td>htaccess</td>
+				<td>.htaccessを作成する</td>
+			</tr>
+			<tr>
+				<td>import</td>
+				<td>ライブラリをimport(インストール)する</td>
+			</tr>
+			<tr>
+				<td>installation</td>
+				<td>アプリケーションのインストレーションを表示する</td>
+			</tr>
+			<tr>
+				<td>log</td>
+				<td>ログを制御する</td>
+			</tr>
+			<tr>
+				<td>man</td>
+				<td>ソースドキュメントを表示する</td>
+			</tr>
+			<tr>
+				<td>new</td>
+				<td>アプリケーションのひな形を作成する</td>
+			</tr>
+			<tr>
+				<td>test</td>
+				<td>testを実行する</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>アプリケーションセットアップ</h3>
+		<p>
+			次回からsetup.phpを実行するとセットアップ画面が表示されアプリケーションの設定やテスト、単純なDBの操作等を行えます。
+		</p>
+	</div>
+</rt:block>

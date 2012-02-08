@@ -1,0 +1,33 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>rhaco のコンストラクタ</h2>
+	<p>
+	</p>
+
+	<div class="xml_desc">
+		<div class="note">
+			PEAR などのライブラリでは，クラスを継承した際には，以下のようなコードを書くことが多いですよね
+		</div>
+		<pre trans="true">
+		&lt;?php
+		class Hoge extends Fuga{
+		      function Hoge($args){
+		      	       $this->Fuga($args);
+		      }
+		}
+		</pre>
+		
+		<div class="note">
+			rhaco では，親クラスが __init__ メソッドを実装していて，親クラスのコンストラクタからこのメソッドが呼び出す
+			という機構を積極的に実装しています。ですので，上記のコードは次のように書き換えられます
+		</div>
+		<pre trans="true">
+		&lt;?php
+		class Hoge extends Fuga{
+		      function __init__($args=null){
+		      	       parent::__init__($args);
+		      }
+		}
+		</pre>
+	</div>
+</rt:block>

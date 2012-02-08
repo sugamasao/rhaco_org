@@ -1,0 +1,58 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Blogを作成する</h2>
+	<p>
+		DB(スキーマ)は用意されてるものとする。<br />
+		ライブラリを利用してブログを作成する
+	</p>
+
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		php rhaco2.php !!!-new index!!!
+	</pre>
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app nomatch_redirect="/">
+			<handler class="com.tokushimakazutaka.flow.parts.Developer" />
+			<handler class="com.tokushimakazutaka.flow.parts.Blog" url="">
+				<var name="title" value="my blog" />
+			</handler>
+		</app>
+	</pre>
+	<p></p>
+	
+	<h3>ライブラリのインポート</h3>
+	<pre trans="true">
+		php setup.php !!!-import!!!
+	</pre>
+	<p></p>
+
+	<pre trans="true" class="tips">
+		以下で、Dbへの接続情報の例が表示されるので、それを参考に__settings__.phpにdefを記述します。
+		php rhaco2.php !!!-dao_config!!!
+	</pre>
+	<div>接続のtypeで選択したモジュールをimportする必要があります</div>
+	<p>
+		> php rhaco2.php -import org.rhaco.storage.db.module.DbcMysql
+	</p>
+
+	<h3>DBにテーブルを作成する</h3>
+	<pre trans="true">
+		php rhaco2.php !!!-create_table -all -execute!!!
+	</pre>
+	<p></p>
+	
+	<h3>管理画面の表示</h3>
+	<pre trans="true">
+		http://localhost/!!!developer!!!
+	</pre>
+	<p></p>
+	
+	<pre trans="true" class="tips">
+		実際に利用する場合は管理画面に認証をつけたり、Entryにフィルタをつけたりする必要があるはずです。
+	</pre>
+	<p></p>
+</rt:block>
+

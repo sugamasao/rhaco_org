@@ -1,0 +1,20 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>エントリーポイント</h2>
+	<p>
+	</p>
+	
+	<pre class="tips" trans="true">
+		&lt;?php
+		include_once("__init__.php");
+		Rhaco::import("generic.Urls");
+		$parser = !!!Urls::parser!!!(array(
+						"^$"=>array("template"=>"index.html"),
+						"^abc$"=>array("template"=>"abc.html"),
+						"^def$"=>array("template"=>"def.html"),
+					));
+		$parser->write();
+	</pre>
+	<p></p>
+	
+</rt:block>

@@ -1,0 +1,50 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Conveyor(Prhagger)を使用する</h2>
+	<p>
+	</p>
+
+	<h3>インストール</h3>
+	<p>
+		Conveyorを<a href="{$t.map_url('rhaco1_app_list')}">Apps</a>から<a href="{$t.map_url('repository_download',1,'app','org.rhaco.conveyor.tgz')}">org.rhaco.conveyor.tgz</a>をダウンロードして解凍します。<br />
+		rhacoを<a href="{$t.map_url('rhaco1')}">rhaco1</a>からダウンロードして解凍します。<br />
+		解凍したrhacoフォルダをConveyorのlibrary以下へ配置します。<br />
+	</p>	
+
+	<h3>初期処理</h3>
+	<p>
+		ブラウザからsetup.phpを実行するとセットアップ画面が表示します。<br />
+		[settings] settingボタン押下します。<br />
+	</p>
+	
+	<h3>Lineの作成</h3>
+	<p>
+		ブラウザからConveyor(index.php)を実行するとLine生成のUIが表示されます。<br />
+		LineフォームのNameにLineの名前を入力します。(今回はfeed)<br />
+		右のWorkersリストからFeedInを左のWorkerフォームへドラッグします。<br />
+		右のWorkersリストからHtmlOutを左のWorkerフォームへドラッグします。<br />
+		追加したWorkerフォームFeedInのConfigs内「RSSのURL」にフィードを含むURLを入力します。<br />
+		Generateボタンを押下します。
+	</p>
+	<div class="filename">フィードを含むURLの例</div>
+	<pre trans="true">
+		http://labs.unoh.net/
+		http://b.hatena.ne.jp/hotentry
+	</pre>
+	<p></p>
+
+	<h3>Lineの実行</h3>
+	<p>
+		setup.phpの[settings]アプリケーションデータの設定 &gt; 実行ファイルの出力場所 で指定されたパスに<br />
+		LineフォームのNameで指定した名前 + .phpのファイル名でLineファイルが出力されています。<br />
+	<p/>
+	<div class="filename">例えば</div>
+	<pre trans="true">
+		~/publish/feed.php
+	</pre>
+	<p>	
+		feed.phpを実行すると、Feedがhtmlで表示されます。<br />
+	</p>
+</rt:block>
+
+	

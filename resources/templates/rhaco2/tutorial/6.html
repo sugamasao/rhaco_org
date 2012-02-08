@@ -1,0 +1,57 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>POSTの場合にのみ処理をする</h2>
+	<p>
+		POSTで送信された場合に値を++++でかこって表示する
+	</p>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				<map class="PostFlow" method="index" template="index.html" />
+			</handler>
+		</app>
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		
+		<h2>POST</h2>
+		<form method="post">
+			<input type="text" name="abc" /><br />
+			<input type="submit" />
+		</form>
+		<hr />
+		
+		<h2>GET</h2>
+		<form method="get">
+			<input type="text" name="abc" /><br />
+			<input type="submit" />
+		</form>
+		<hr />
+		
+		<h3>{$abc}</h3>
+		
+		</body>
+		</html>
+	</pre>
+	
+	<div class="filename">libs/PostFlow.php</div>
+	<pre trans="true">
+		&lt;?php
+		class PostFlow extends Flow{
+			public function index(){
+				$abc = $this->in_vars("abc");
+				if(!!!$this->is_post()!!!){
+					$abc = "++++".$abc."++++";
+				}
+				$this->vars("abc",$abc);
+			}
+		}
+	</pre>
+</rt:block>
+

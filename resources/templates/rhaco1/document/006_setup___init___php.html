@@ -1,0 +1,19 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>__init__.php</h2>
+	<p>
+		__init__.phpはデフォルトでは<a href="{$t.map_url('rhaco1_document','006_setup___settings___php.html')}">__settings__.php</a>を読み込んでいるだけですが，全てのエントリファイルが必ず読み込むファイルです。<br />
+		ですので、アプリケーションの初期化など全体に適用したい事を記述します。
+	</p>
+
+	<div class="xml_desc">
+		<pre trans="true">
+		&lt;?php
+		clude_once dirname(__FILE__)."/__settings__.php";
+		//エラー出力制御
+		error_reporting(0);
+		ini_set("display_errors","off");
+		ini_set("display_startup_errors","off");
+		</pre>
+	</div>
+</rt:block>

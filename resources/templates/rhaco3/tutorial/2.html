@@ -1,0 +1,38 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>PEARを利用してQRコードを表示する</h2>
+	<p>
+	</p>
+
+	<h3>利用したパッケージ</h3>	
+	<ul class="itemlist">
+		<li>org.rhaco.lang.LooseSyntax</li>
+		<li>org.rhaco.Pear</li>
+	</ul>
+	<pre trans="true">
+		!!!php rhaco3.php -import!!! org.rhaco.lang.LooseSyntax org.rhaco.Pear
+	</pre>
+	<p></p>
+	
+	<h3>使用するPEARのライブラリ</h3>
+	<ul class="itemlist">
+		<li>Image_QRCode 0.1.1 alpha</li>
+	</ul>
+	<pre trans="true">
+		!!!php rhaco3.php -org.rhaco.Pear!!! Image_QRCode-0.1.1 alpha
+	</pre>
+	<p></p>
+
+	<h3>QRコードの表示</h3>
+	<pre trans="true">
+		&lt;?php
+		include('rhaco3.php');
+		
+		\org\rhaco\lang\LooseSyntax::call(function(){
+		  $qr = new Image_QRCode(array('version'=>5));
+		  $qr->makeCode('まさにっき: http://d.hatena.ne.jp/seiunsky/20101227/1293465449');
+		});
+	</pre>
+</rt:block>
+
+	

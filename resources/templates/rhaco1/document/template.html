@@ -1,0 +1,45 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>テンプレートエンジン</h2>
+	<p>
+		テンプレートエンジンで出来る事は、<a href="{$t.map_url('rhaco1_document','template_tag.html')}">拡張タグ</a>による操作と変数の展開のみです。<br />
+		ロジックの記述はできません。
+	</p>
+
+	<div class="xml_desc">
+		<a name="template_default_var"></a>
+		<h3>デフォルトで埋め込まれている変数</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>変数名</th>
+				<th>内容</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>$rhaco</td>
+				<td>Rhaco</td>
+			</tr>
+			<tr>
+				<td>$env</td>
+				<td>lang.Env</td>
+			</tr>
+			<tr>
+				<td>$f</td>
+				<td>tag.model.TemplateFormatter</td>
+			</tr>
+			</tbody>
+		</table>
+		<p>&nbsp;</p>
+		
+		<h4>使用例</h4>
+		<pre trans="true">
+			{$abc}
+			{$rhaco.url()}
+			{$f.text2.html()}
+			{$env.isSSL()}
+		</pre>
+	</div>
+</rt:block>
+	

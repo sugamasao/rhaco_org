@@ -1,0 +1,353 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>アプリケーションXMLの構成 (setup/project.xml)</h2>
+	<p></p>
+	
+	<pre trans="true" class="tips">
+		<project version="0.0.1" name="new_app" pathinfo="index.php">
+			<input name="ADMIN_NAME">
+				<title>管理者名</title>
+				<description>メールの差出人などに使います</description>
+				<data></data>
+			</input>
+			<database name="sample">
+				<table name="user_profile">
+					<column name="id" type="serial"/>
+					<column name="name" type="string" />
+					<column name="postal_code" type="string" />
+				</table>
+			</database>
+		</project>
+	</pre>
+	<p></p>
+	
+	<div class="xml_desc">
+		<a name="project"></a>
+		<h3>&lt;project&gt;</h3>
+		<p>
+			アプリケーションの本体
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>version</td>
+				<td>アプリケーションのバージョン</td>
+			</tr>
+			<tr>
+				<td>name</td>
+				<td>アプリケーションの名前</td>
+			</tr>
+			<tr>
+				<td>pathinfo</td>
+				<td>エントリポイントのphpファイル名 (index.php) を定義すると.htaccessを生成できるようになる(アプリケーションの初期処理)</td>
+			</tr>
+			</tbody>
+		</table>
+		
+		<h4>要素</h4>
+		<div>
+			<a href="#session">&lt;session&gt;</a>
+			<a href="#cookie">&lt;cookie&gt;</a>
+			<a href="#database">&lt;database&gt;</a>
+			<a href="#define">&lt;define&gt;</a>
+			<a href="#input">&lt;input&gt;</a>
+			<a href="#password">&lt;password&gt;</a>
+			<a href="#text">&lt;text&gt;</a>
+			<a href="#select">&lt;select&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+		</div>
+	</div>
+
+	<div class="xml_desc">
+		<a name="session"></a>
+		<h3>&lt;session&gt;</h3>
+		<p>
+			セッションの定義
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>expire</td>
+				<td>有効期限(秒)</td>
+			</tr>
+			<tr>
+				<td>cache</td>
+				<td>キャッシュリミッタを設定する(<a href="http://jp2.php.net/manual/ja/function.session-cache-limiter.php">参考</a>) [ none, nocache, private, private_no_expire, public ]</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="cookie"></a>
+		<h3>&lt;cookie&gt;</h3>
+		<p>
+			クッキーの定義
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>expire</td>
+				<td>有効期限(秒)</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="define"></a>
+		<h3>&lt;define&gt;</h3>
+		<p>
+			定数
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>定義名</td>
+			</tr>
+			<tr>
+				<td>value</td>
+				<td>値</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<div class="xml_desc">
+		<a name="input"></a>
+		<h3>&lt;input&gt;</h3>
+		<p>
+			設定値 Rhaco::constant(設定名) で参照する<br />
+			setupで入力フィールドが表示される
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>type</td>
+				<td>設定名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#title">&lt;title&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+			<a href="#data">&lt;data&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="password"></a>
+		<h3>&lt;password&gt;</h3>
+		<p>
+			設定値 Rhaco::constant(設定名) で参照する<br />
+			setupでパスワードフィールドが表示される
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>type</td>
+				<td>設定名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#title">&lt;title&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+			<a href="#data">&lt;data&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="textarea"></a>
+		<h3>&lt;textarea&gt;</h3>
+		<p>
+			設定値 Rhaco::constant(設定名) で参照する<br />
+			setupでテキストフィールドが表示される
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>type</td>
+				<td>設定名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#title">&lt;title&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+			<a href="#data">&lt;data&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="select"></a>
+		<h3>&lt;select&gt;</h3>
+		<p>
+			設定値 Rhaco::constant(設定名) で参照する<br />
+			setupでセレクトボックスが表示される
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>type</td>
+				<td>設定名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#title">&lt;title&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+			<a href="#data">&lt;data&gt;</a>
+		</div>
+	</div>
+	<div class="xml_desc">
+		<a name="title"></a>
+		<h3>&lt;title&gt;</h3>
+		<p>
+			タイトル
+		</p>
+	</div>
+	<div class="xml_desc">
+		<a name="description"></a>
+		<h3>&lt;description&gt;</h3>
+		<p>
+			説明
+		</p>
+	</div>
+	<div class="xml_desc">
+		<a name="data"></a>
+		<h3>&lt;data&gt;</h3>
+		<p>
+			データ(デフォルト値)
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>caption</td>
+				<td>キャプション (&lt;select&gt;でのみ使用)</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="database"></a>
+		<h3>&lt;"database"&gt;</h3>
+		<p>
+			データベースの設定
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>接続名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#table">&lt;table&gt;</a>
+			<a href="#ext">&lt;ext&gt;</a>
+			<a href="#map">&lt;map&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="table"></a>
+		<h3>&lt;"table"&gt;</h3>
+		<p>
+			モデルの定義
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>接続名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#table">&lt;table&gt;</a>
+			<a href="#ext">&lt;ext&gt;</a>
+			<a href="#map">&lt;map&gt;</a>
+			<a href="#default">&lt;default&gt;</a>
+			<a href="#description">&lt;description&gt;</a>
+		</div>
+	</div>
+</rt:block>
+
+	

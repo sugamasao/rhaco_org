@@ -1,0 +1,115 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>SQLiteで簡単な掲示板の機能を部品化</h2>
+	<p>
+		<a href="{$t.map_url('rhaco3_tutorial','3.html')}">SQLiteで簡単な掲示板に制限を加える</a>のつづき
+	</p>
+	
+	<h3>機能部分はlibsへ</h3>
+	<div class="filename">libs/flow/parts/Board/Board.php</div>
+	<pre trans="true">
+		&lt;?php
+		namespace flow\parts;
+		
+		class Board extends \org\rhaco\flow\parts\RequestFlow{
+			public function index(){
+				if($this->is_post()){
+				$obj = new Board\Model();
+				$obj->name($this->in_vars("name"));
+				$obj->comment($this->in_vars("comment"));
+				try{
+					$obj->save();
+					}catch(\org\rhaco\Exceptions $e){}
+				}
+				$paginator = new \org\rhaco\Paginator(5,$this->in_vars("page",1));
+				$this->vars("object_list",Board\Model::find_all(
+											$paginator
+											,\org\rhaco\store\db\Q::order('-id')
+										));
+				$this->vars("paginator",$paginator);
+			}
+		}
+	</pre>
+	<p></p>
+	
+	<h3>専用のモデルのは機能の一部として</h3>
+	<div class="filename">libs/flow/parts/Board/Model.php</div>
+	<pre trans="true">
+		&lt;?php
+		namespace flow\parts\Board;
+		/**
+		 * @var serial $id
+		 * @var string $name
+		 * @var text $comment @{"require":true}
+		 * @var timestamp $created_at @{"auto_now_add":true}
+		 * @class @{"table":"board"}
+		 */
+		class Model extends \org\rhaco\store\db\Dao{
+		  protected $id;
+		  protected $name;
+		  protected $comment;
+		  protected $created_at;
+		}
+	</pre>
+	<p></p>
+	
+	<h3>テンプレートはresources/templatesへ</h3>
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		</head>
+		<body>
+		  &lt;rt:exceptions /&gt;
+		  <form method="post">
+		    名前:<input type="text" name="name" rt:ref="true" /><br />
+		    コメント:<textarea name="comment"></textarea><br />
+		    <input type="submit" value="投稿" />
+		  </form>
+		  <rt:loop param="object_list" var="obj">
+		  <div>
+		    {$obj.name()} [{$obj.fm_created_at()}]
+		  </div>
+		  <pre>
+		  {$obj.comment()}
+		  </pre>
+		  <hr />
+		  </rt:loop>
+		  
+		  <div class="paginator">
+		    &lt;rt:paginator /&gt;
+		  </div>
+		</body>
+		</html>
+	</pre>
+	<p></p>
+
+	<h3>環境に依存する設定は__settgins__.phpへ</h3>
+	<div class="filename">__settgins__.php</div>
+	<pre trans="true">
+		&lt;?php
+		\org\rhaco\Conf::set(
+			'org.rhaco.store.db.Dao'
+			,'flow.parts.Board'
+			,'{"type":"org.rhaco.store.db.module.Sqlite","dbname":"board"}'
+		);
+	</pre>
+	<p></p>
+	
+	<h3>エントリポイントにはURLのマッピングを</h3>
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		&lt;?php
+		include_once("rhaco3.php");
+		$flow = new \org\rhaco\Flow();
+		$flow->set_object_module(new \org\rhaco\flow\module\Paginator())
+		->set_object_module(new \org\rhaco\module\Exceptions)
+		->output(array(
+			patterns=>array(''=>array(action=>'flow.parts.Board::index',template=>'index.html'))
+		));
+	</pre>
+	<p></p>
+</rt:block>
+
+	

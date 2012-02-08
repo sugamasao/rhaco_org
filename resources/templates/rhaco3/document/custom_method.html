@@ -1,0 +1,63 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Objectのカスタマイズ</h2>
+	<p>
+		Object(org.rhaco.Object)を継承したクラスに特殊メソッドを定義することでObjectの挙動をカスタマイズする事ができます。<br />
+	</p>
+
+	<div class="xml_desc">
+		<a name="method"></a>
+		<h3>特殊メソッド ( protected )</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>メソッド名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>__new__</td>
+				<td>コンストラクタの拡張</td>
+			</tr>
+			<tr>
+				<td>__init__</td>
+				<td>インスタンス作成の拡張</td>
+			</tr>
+			<tr>
+				<td>__del__</td>
+				<td>デストラクタの拡張</td>
+			</tr>
+			<tr>
+				<td>__str__</td>
+				<td>オブジェクトの文字列表現の拡張</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="static_method"></a>
+		<h3>特殊メソッド ( static public )</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>メソッド名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>__import__</td>
+				<td>import時に実行される初期処理</td>
+			</tr>
+			<tr>
+				<td>__shutdown__</td>
+				<td>アプリケーションの終了時に実行される終了処理</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</rt:block>
+
+	

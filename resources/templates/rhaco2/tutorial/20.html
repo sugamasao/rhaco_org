@@ -1,0 +1,68 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>アプリケーションのテストを行う</h2>
+	<p>
+		アプリケーション handlerのテストを行う
+	</p>
+	
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		> php rhaco2.php -new index
+	</pre>
+	<p>&nbsp;</p>
+	
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<h1>Enjoy</h1>
+		</body>
+		</html>
+	</pre>
+	<p>&nbsp;</p>	
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				<map url="" template="index.html" name="!!!index!!!" />
+				<map url="sample" template="index.html" name="!!!sample!!!" />
+			</handler>
+		</app>
+		
+		!!!<!---!!!
+		# abc
+		$b = !!!test_browser();!!!
+		$b->do_get(!!!test_map_url("index")!!!);
+		!!!eq!!!(200,$b->status());
+		!!!meq!!!("Enjoy",$b->body());
+		!!!-->!!!
+		
+		!!!<!---!!!
+		# def
+		$b = !!!test_browser();!!!
+		$b->do_get(!!!test_map_url("sample")!!!);
+		!!!eq!!!(200,$b->status());
+		!!!meq!!!("Enjoy",$b->body());
+		!!!-->!!!
+	</pre>
+	<p>&nbsp;</p>
+
+	<pre trans="true" class="tips">
+		クラスのテストはクラスに書くように、アプリケーションのテストはアプリケーションに書きます。
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>テストの実行</h3>
+	<pre trans="true">
+		php rhaco2.php -test !!!index!!!
+	</pre>
+	<p>&nbsp;</p>
+	
+	<pre trans="true" class="tips">
+		index.phpのテストならindex , sample.phpのテストならsample と指定します。
+		何も指定が無ければすべてのテストを実行します。(vendorsは含みません)
+	</pre>
+</rt:block>
+

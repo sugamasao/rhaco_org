@@ -1,0 +1,128 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>スタートアップ</h2>
+	<p>
+	</p>
+
+	<div class="xml_desc">
+		<h3>rhaco3のダウンロード</h3>
+		<p>
+			<a href="{$t.map_url('download','core/rhaco3.php')}">こちら</a>よりダウンロードし解凍します。配置場所はどこでもかまいません。
+		</p>
+	</div>
+	
+	<p>
+		ライブラリのインストールやアプリケーションのセットアップをrhaco3.phpで行うことができます。<br />
+		主要な機能の他にライブラリが追加されるとセットアップの機能が増える場合があります。
+	</p>
+	<pre trans="true" class="tips">
+	php rhaco3.php
+	</pre>
+	<p></p>
+		
+	<div class="xml_desc">
+		<h3>標準セットアップ</h3>
+		<p>
+			オプションを指定せずにrhaco3.phpを実行すると一覧が表示されます。
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>オプション</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>import</td>
+				<td>ライブラリをimport(インストール)する</td>
+			</tr>
+			<tr>
+				<td>phar</td>
+				<td>ライブラリをひとつのphar(libs.phar)にまとめる</td>
+			</tr>
+			<tr>
+				<td>search</td>
+				<td>ライブラリの検索</td>
+			</tr>
+			<tr>
+				<td>htaccess</td>
+				<td>.htaccessを作成する</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>その他のライブラリ</h3>
+		<div class="notice">例えばorg.rhaco.Manをインストールしてみます</div>
+		<pre trans="true">
+			php rhaco3.php -import org.rhaco.Man
+		</pre>
+		<p></p>
+		
+		<div class="notice">一覧にorg.rhaco.Manのセットアップが追加されています</div>
+		<pre trans="true">
+			> php rhaco3.php
+			
+			Commands: 
+			  import        : Download Package
+			  phar          : Create a phar libs
+			  search        : Search package
+			  htaccess      : Create .htaccess
+			  org.rhaco.Man : Class descriptions			
+		</pre>
+		<p></p>
+		
+		<div class="notice">オプションの接尾に<span style="font-weight: bold;">?</span>をつける事でセットアップの説明を見る事ができます</div>
+		<pre trans="true">
+			> php rhaco3.php -org.rhaco.Man!!!?!!!
+
+			Usage:
+			  -org.rhaco.Man [(string) package path]
+			
+			  Options:
+			    -m    (string) method name
+			
+			
+			  description:
+			    Class descriptions
+		</pre>
+		<p></p>
+		
+		<div class="notice">org.rhaco.Objectの説明を見てみます</div>
+		<pre trans="true">
+			> php rhaco3.php -org.rhaco.Man org.rhaco.Object
+
+			class org.rhaco.Object:
+			 Description:   基底クラス
+			  Static methods defined here:
+			    anon              : クラスのアノテーションを取得する
+			    set_module        : クラスにモジュールを追加する
+			
+			  Methods defined here:
+			    set_object_module : インスタンスにモジュールを追加する
+			    prop_anon         : プロパティのアノテーションを取得する
+			    props             : アクセス可能なプロパティを取得する
+		</pre>
+		<p></p>
+		
+		<div class="notice">org.rhaco.Object::anonの説明を見てみます</div>
+		<pre trans="true">
+			> php rhaco3.php -org.rhaco.Man org.rhaco.Object -m anon
+
+			class org.rhaco.Object in method anon:
+			 Description:
+			   クラスのアノテーションを取得する
+			
+			 Parameter:
+			    n  : [string]  アノテーション名
+			    df : [mixed=null]  デフォルト値
+			
+			 Return:
+			   mixed 
+		</pre>
+		<p></p>
+	</div>
+
+</rt:block>

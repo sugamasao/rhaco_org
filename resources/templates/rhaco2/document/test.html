@@ -1,0 +1,200 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>テスト</h2>
+	<p>
+		テストはdoctestで行います
+	</p>
+	<div class="xml_desc">
+		<a name="exe_test"></a>
+		<h4>テストの実行</h4>
+		<p>
+			テストの実行はrhaco2.phpで行います。
+		</p>
+		<pre trans="true">
+			php rhaco2.php -test パッケー名またはエントリーポイント名
+			php rhaco2.php -test パッケー名またはエントリーポイント名 -m メソッド名
+			php rhaco2.php -test パッケー名またはエントリーポイント名 -m メソッド名 -b メソッド中のブロック名
+		</pre>
+		<div>※直接Testクラスを利用して実行する事も可能です。</div>
+	</div>
+
+	<div class="xml_desc">
+		<a name="funcs"></a>
+		<h4>テストで利用する検証用の関数</h4>
+		<table>
+			<thead>
+			<tr>
+				<th>関数名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>eq($expectation,$result)</td>
+				<td>$resultが$expectationが同じならば成功とする</td>
+			</tr>
+			<tr>
+				<td>neq($expectation,$result)</td>
+				<td>$resultが$expectationが同じならば失敗とする</td>
+			</tr>
+			<tr>
+				<td>meq($keyword,$src)</td>
+				<td>文字列中に指定した文字列がすべて存在していれば成功とする</td>
+			</tr>
+			<tr>
+				<td>nmeq($keyword,$src)</td>
+				<td>文字列中に指定した文字列がすべて存在していれば失敗とする</td>
+			</tr>
+			<tr>
+				<td>success()</td>
+				<td>成功とする</td>
+			</tr>
+			<tr>
+				<td>fail()</td>
+				<td>失敗とする</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="funcs"></a>
+		<h4>テスト用の関数</h4>
+		<table>
+			<thead>
+			<tr>
+				<th>関数名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>ftmp($path,$body)</td>
+				<td>テンポラリファイルを作成する</td>
+			</tr>
+			<tr>
+				<td>tmp_path($path=null)</td>
+				<td>テンポラリファイルを保存するパスを返す</td>
+			</tr>
+			<tr>
+				<td>test_browser()</td>
+				<td>テスト用のHttpインスタンスを返す</td>
+			</tr>
+			<tr>
+				<td>test_map_url($name)</td>
+				<td>mapに定義されたurlをフォーマットして返す</td>
+			</tr>
+			<tr>
+				<td>handled_var($name)</td>
+				<td>テスト用Httpのアクセス結果を取得する</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="xml_desc">
+		<a name="lib_test"></a>
+
+		<h4>ライブラリのテスト</h4>
+		<p>
+			ライブラリのテストはメソッドの中、クラスの中に/***(*が３つ)〜*/のコメントブロックに記述します。<br />
+			コメントブロックの先頭に#(任意の文字列)と記述することで、テストブロックの名前を定義できます。<br />
+			自身のクラスを「self」と表現する事が可能です。
+		</p>
+		<div class="filename">libs/Sample.php</div>
+		<pre trans="true">
+			&lt;?php
+			class Sample{
+				public function abc($str){
+					return '('.$str.')';
+					/***
+						$self = new self();
+						eq("(hoge)",$self->abc("hoge"));
+					 */
+					/***
+						!!!# fuga!!!
+						$self = new self();
+						eq("(fuga)",$self->abc("fuga"));
+					 */
+				}
+				static public function def($str){
+					return '('.$str.')';
+					/***
+						eq("(hoge)",self::def("hoge"));
+					 */
+				}
+				/***
+					eq("(hoge)",self::def("hoge"));
+					$self = new self();
+					eq("(fuga)",$self->abc("fuga"));
+				 */
+				 
+				/***
+					!!!# __setup__!!!
+					eq(true,true);
+				 */
+				/***
+					!!!# __teardown__!!!
+					eq(true,true);
+				 */
+			}
+		</pre>
+		<p>
+			クラスの中(メソッドの中ではなく)の __setup__ と __teardown__ は特別なテストブロックです。<br />
+			__setup__は全てのテストブロックの実行前に実行されます。<br />
+			__teardown__は全てのテストブロックの実行後に実行されます。
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="app_test"></a>
+
+		<h4>エントリーポイントのテスト</h4>
+		<p>
+			エントリーポイントのテストは<app>の外に<!---(-が３つ)〜-->のコメントブロックに記述します。<br />
+			コメントブロックの先頭に#(任意の文字列)と記述することで、テストブロックの名前を定義できます。<br />
+		</p>
+		<div class="filename">index.php</div>
+		<pre trans="true">
+			<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+			<app>
+				<handler>
+					<map url="" name="index">
+						<var name="aaa" value="ABC" />
+					</map>
+					<map url="hoge" name="hoge" />
+				</handler>
+			</app>
+			
+			<!---
+			$b = test_browser();
+			$b->do_get(test_map_url("index"));
+			eq(200,$b->status());
+			eq("ABC",handled_var("aaa"));
+			-->
+			
+			<!---
+			$b = test_browser();
+			$b->do_get(test_map_url("hoge"));
+			eq(200,$b->status());
+			-->
+			
+			<!---
+			!!!# __setup__!!!
+			eq(1,1);
+			eq(1,1);
+			-->
+			
+			<!---
+			!!!#__teardown__!!!
+			eq(1,1);
+			-->
+		</pre>
+		<p>
+			__setup__ と __teardown__ は特別なテストブロックです。<br />
+			__setup__は全てのテストブロックの実行前に実行されます。<br />
+			__teardown__は全てのテストブロックの実行後に実行されます。
+		</p>
+	</div>
+</rt:block>
+	

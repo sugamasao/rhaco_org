@@ -1,0 +1,112 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>値によってテーマテンプレートを切り替える</h2>
+	<p>
+		値によってテンプレートを切り替える
+	</p>
+
+	<h3>アプリケーションのひな形の作成</h3>
+	<pre trans="true">
+		php rhaco2.php !!!-new index!!!
+	</pre>
+	
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+		<handler>
+		<map url="" class="SampleFlow" method="index" 
+									template="index.html" !!!theme_path="theme"!!! />
+		</handler>
+		</app>
+	</pre>
+	
+	<div class="filename">libs/SampleFlow.php</div>
+	<pre trans="true">
+		&lt;?php
+		class SampleFlow extends Flow{
+			public function index(){
+				switch($this->in_vars("view")){
+					case "red":
+					case "blue":
+						!!!$this->theme($this->in_vars("view"));!!!
+				}
+			}
+		}
+	</pre>
+
+	<div class="filename">resources/templates/theme/default/index.html</div>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!white!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="dummy.jpg" />
+		</body>
+		</html>
+	</pre>
+	
+	<div class="filename">resources/templates/theme/blue/index.html</div>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!blue!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="dummy.jpg" />
+		</body>
+		</html>
+	</pre>
+
+	<div class="filename">resources/templates/theme/red/index.html</div>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!red!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="dummy.jpg" />
+		</body>
+		</html>
+	</pre>
+
+	<h3>blueを選択した場合の結果</h3>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!blue!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="http://localhost/resources/media/!!!theme/blue/!!!dummy.jpg" />
+		</body>
+	</pre>
+
+	<h3>redを選択した場合の結果</h3>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!red!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="http://localhost/resources/media/!!!theme/red/!!!dummy.jpg" />
+		</body>
+	</pre>
+
+	
+	<h3>whiteを選択した場合の結果</h3>
+	<pre trans="true">
+		<html>
+		<body style="background-color: !!!white!!!">
+			<a href="?view=blue">blue</a>
+			<a href="?view=red">red</a>
+			<a href="?">white</a>
+			<img src="http://localhost/resources/media/!!!theme/default/!!!dummy.jpg" />
+		</body>
+	</pre>
+
+	<pre trans="true" class="tips">
+		mediaのURLも変更される事に注意してください。
+	</pre>
+</rt:block>
+

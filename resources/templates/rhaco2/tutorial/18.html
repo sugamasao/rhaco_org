@@ -1,0 +1,40 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>PEAR(Image_QRCode)を利用してQRコードを表示する</h2>
+	<p>
+	</p>
+
+	<h3>利用したパッケージ</h3>	
+	<ul class="itemlist">
+		<li>org.rhaco.service.Pea</li>
+	</ul>
+	<pre trans="true">
+		!!!php rhaco2.php -import!!! org.rhaco.service.Pea
+	</pre>
+	<p></p>
+	
+	<h3>使用するPEARのライブラリ</h3>
+	<ul class="itemlist">
+		<li>Image_QRCode alpha</li>
+	</ul>
+	<pre trans="true">
+		!!!php rhaco2.php -pear_install!!! Image_QRCode -state alpha
+	</pre>
+	<p></p>
+
+	<h3>QRコードの表示</h3>
+	<pre trans="true">
+		&lt;?php
+		include('rhaco2.php');
+		import('org.rhaco.service.Pea');
+		Pea::import('Image_QRCode');
+
+		Pea::begin_loose_syntax();
+			$qr = new Image_QRCode(); 
+			$qr->makeCode("まさにっき: http://d.hatena.ne.jp/seiunsky/20101227/1293465449");
+		Pea::end_loose_syntax();
+	</pre>
+	<pre trans="true" class="tips">
+		include_pathを設定する必要はありません。
+	</pre>	
+</rt:block>

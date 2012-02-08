@@ -1,0 +1,157 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>DBを操作する</h2>
+	<p>
+		coreにはDB操作の機能はないので org.rhaco.storage.db.Dao を利用してDBへの操作を行います
+	</p>
+	
+	<div class="filename">libs/Entry.php</div>
+	<pre trans="true">
+		&lt;?php
+		!!!import("org.rhaco.storage.db.Dao");!!!
+		/**
+		 * @var serial $id
+		 * @var alnum $name @{"max":50,"unique":true}
+		 * @var string $title @{"max":100,"require":true}
+		 * @var text $description @{"require":true}
+		 * @var timestamp $create_date @{"auto_now_add":true}
+		 * @var timestamp $update_date @{"auto_now":true}
+		 */
+		class Entry extends !!!Dao!!!{
+			protected $id;
+			protected $name;
+			protected $title;
+			protected $description;
+			protected $create_date;
+			protected $update_date;
+		}
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>ライブラリのインポート</h3>
+	<pre trans="true" class="tips">
+		php rhaco2.php -import
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>接続情報の記述</h3>
+	<pre trans="true" class="tips">
+		以下で、Dbへの接続情報の例が表示されるので、それを参考に__settings__.phpにdefを記述します。
+		> !!!php rhaco2.php -dao_config!!!
+	</pre>
+	<p>&nbsp;</p>
+
+	<h3>DBにテーブルを作成する</h3>
+	<pre trans="true" class="tips">
+		CREATE TABLE文の確認
+		> php !!!rhaco2.php -create_table Entry!!!
+
+		CREATE TABLE文の実行
+		> php !!!rhaco2.php -create_table Entry -execute!!!
+	</pre>
+	<p>&nbsp;</p>
+
+
+	<div class="filename">sample.php</div>
+	<pre trans="true">
+		&lt;?php
+		require(dirname(__FILE__).'/rhaco2.php');
+		import('Entry');
+		
+		$str = 'ABCDEFGH';
+		for($i=0;$i<strlen($str);$i++){
+			$v = substr($str,$i,1);
+		
+			$entry = new Entry();
+			$entry->name($i+1);
+			$entry->title(strtolower($v));
+			$entry->description($v);
+			$entry->save();
+		}
+		
+		!!!println('# 一覧');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find() as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+		
+		$entry = C(Entry)->find_get(Q::eq('title','a'));
+		$entry->title('x');
+		$entry->save();
+		
+		!!!println('# aがxに更新されている');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find(Q::eq('title','X')) as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+		
+		$entry = C(Entry)->find_get(Q::eq('title','x'));
+		$entry->delete();
+		
+		!!!println('# xが削除されている');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find() as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+		
+		!!!println('# 1ページ');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find(new Paginator(3,1),Q::order('id')) as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+		
+		!!!println('# 2ページ');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find(new Paginator(3,2),Q::order('id')) as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+		
+		!!!println('# 3ページ');!!!
+		println(implode(',',R(Entry)->props()));
+		foreach(C(Entry)->find(new Paginator(3,3),Q::order('id')) as $obj){
+		  println(implode(',',$obj->hash()));
+		}
+	</pre>
+	<p>&nbsp;</p>
+
+	<h3>結果</h3>
+	<pre trans="true">
+		!!!# 一覧!!!
+		id,name,title,description,create_date,update_date
+		1,1,a,A,2011/07/03 14:04:05,2011/07/03 14:04:05
+		2,2,b,B,2011/07/03 14:04:05,2011/07/03 14:04:05
+		3,3,c,C,2011/07/03 14:04:05,2011/07/03 14:04:05
+		4,4,d,D,2011/07/03 14:04:05,2011/07/03 14:04:05
+		5,5,e,E,2011/07/03 14:04:05,2011/07/03 14:04:05
+		6,6,f,F,2011/07/03 14:04:05,2011/07/03 14:04:05
+		7,7,g,G,2011/07/03 14:04:05,2011/07/03 14:04:05
+		8,8,h,H,2011/07/03 14:04:05,2011/07/03 14:04:05
+		!!!# aがxに更新されている!!!
+		id,name,title,description,create_date,update_date
+		1,1,x,A,2011/07/03 14:04:05,2011/07/03 14:04:05
+		!!!# xが削除されている!!!
+		id,name,title,description,create_date,update_date
+		2,2,b,B,2011/07/03 14:04:05,2011/07/03 14:04:05
+		3,3,c,C,2011/07/03 14:04:05,2011/07/03 14:04:05
+		4,4,d,D,2011/07/03 14:04:05,2011/07/03 14:04:05
+		5,5,e,E,2011/07/03 14:04:05,2011/07/03 14:04:05
+		6,6,f,F,2011/07/03 14:04:05,2011/07/03 14:04:05
+		7,7,g,G,2011/07/03 14:04:05,2011/07/03 14:04:05
+		8,8,h,H,2011/07/03 14:04:05,2011/07/03 14:04:05
+		!!!# 1ページ!!!
+		id,name,title,description,create_date,update_date
+		2,2,b,B,2011/07/03 14:04:05,2011/07/03 14:04:05
+		3,3,c,C,2011/07/03 14:04:05,2011/07/03 14:04:05
+		4,4,d,D,2011/07/03 14:04:05,2011/07/03 14:04:05
+		!!!# 2ページ!!!
+		id,name,title,description,create_date,update_date
+		5,5,e,E,2011/07/03 14:04:05,2011/07/03 14:04:05
+		6,6,f,F,2011/07/03 14:04:05,2011/07/03 14:04:05
+		7,7,g,G,2011/07/03 14:04:05,2011/07/03 14:04:05
+		!!!# 3ページ!!!
+		id,name,title,description,create_date,update_date
+		8,8,h,H,2011/07/03 14:04:05,2011/07/03 14:04:05
+	</pre>
+	<p>&nbsp;</p>
+</rt:block>
+

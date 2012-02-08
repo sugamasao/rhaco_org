@@ -1,0 +1,34 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>choice型に使用できる値の一覧を取得する</h2>
+	<p>
+	</p>
+
+	<pre trans="true">
+		&lt;?php
+		include("jump.php");
+		
+		/**
+		 * @var choice $abc @{"choices":["abc","def","ghi"]}
+		 */
+		class Sample extends Object{
+			protected $abc;
+		}
+		
+		$obj = new Sample();
+		var_dump($obj->a("abc","!!!choices!!!"));
+	</pre>
+
+	<div class="filename">結果</div>
+	<pre trans="true">
+		array(3) {
+		  [0]=>
+		  string(3) "abc"
+		  [1]=>
+		  string(3) "def"
+		  [2]=>
+		  string(3) "ghi"
+		}
+	</pre>
+</rt:block>
+

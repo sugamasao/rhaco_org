@@ -1,0 +1,70 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>ログインモジュールを作成しログイン状態を表示する</h2>
+	<p>
+		URL / でアクセスした場合にログイン状態を表示する。<br />
+		ログイン成功後は URL / にいく。<br />
+		ログインしていない状態であればログインへのリンクを表示する。<br />
+		ログインしている状態であればログアウトへのリンクを表示する。<br />
+	</p>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				!!!<module class="LoginModule" />!!!
+				
+				<map url="login" !!!method="do_login"!!! name="login" template="login.html">
+					<arg name="login_redirect" value="index" />
+				</map>
+				<map url="logout" !!!method="do_logout"!!! name="logout">
+					<arg name="logout_redirect" value="index" />
+				</map>
+				<map url="" template="index.html" name="index" />
+			</handler>
+		</app>
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+			<rt:if param="{$t.is_login()}">
+				Certified<br />
+				<a href="{$t.map_url('logout')}">logout</a>
+			<rt:else />
+				Unauthorized<br />
+				<a href="{$t.map_url('login')}">login</a>
+			</rt:if>
+		</body>
+		</html>
+	</pre>
+
+	<div class="filename">resources/templates/login.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+		<form method="post">
+			user name:<input type="text" name="user_name" /><br />
+			password:<input type="password" name="password" /><br />
+			<input type="submit" value="Login" />
+		</form>
+		<rt:invalid />
+		</body>
+		</html>
+	</pre>
+	<div class="filename">libs/LoginModule.php</div>
+	<pre trans="true">
+		&lt;?php
+		class LoginModule{
+			public function !!!login_condition!!!(Request $req){
+				if($req->in_vars("user_name") == "Bob" && $req->in_vars("password") == "hoge"){
+					return true;
+				}
+				return false;
+			}
+		}
+	</pre>
+</rt:block>
+

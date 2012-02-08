@@ -1,0 +1,382 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>エントリーポイント</h2>
+	<p>
+	</p>
+	
+	<pre class="tips" trans="true">
+		&lt;?php require dirname(__FILE__)."/setup.php"; app(); ?&gt;
+		<app name="application name" summary="説明">
+			<description>詳細</description>
+			<installation>
+				インストール手順
+			</installation>
+			!!!<handler>!!!
+				<map name="index" url="" template="index.html" />
+				<map name="a" url="abc" template="abc.html" />
+				<map name="d" url="def" template="def.html" />
+			!!!</handler>!!!
+		</app>
+	</pre>
+	<p></p>
+	
+	
+	<h2>アプリケーションXMLの構成</h2>
+	<p>
+	</p>
+	<div class="xml_desc">
+		<a name="xml_app"></a>
+		<h3>&lt;app&gt;</h3>
+		<p>
+			アプリケーションの本体
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>nomatch_redirect</td>
+				<td>invokeが無くhandlerにも一致しなかった場合のリダイレクト先</td>
+			</tr>
+			<tr>
+				<td>nomatch_template</td>
+				<td>invokeが無くhandlerにも一致しなかった場合に表示するテンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>ns</td>
+				<td>セッションのネームスペース、未指定の場合はhandler毎に別セッションとなる</td>
+			</tr>
+			<tr>
+				<td>summary</td>
+				<td>アプリケーションの概要</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_handler">&lt;handler&gt;</a>
+			<a href="#xml_invoke">&lt;invoke&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_handler"></a>
+		<h3>&lt;handler&gt;</h3>
+		<p>
+			URLマッピングハンドラ
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>hide</td>
+				<td>指定の値(release, stage, both)とアプリケーションのモードとのマッチングでhandlerを無視する</td>
+			</tr>
+			<tr>
+				<td>class</td>
+				<td>実行するFlowクラスを指定する、<a href="#xml_map">&lt;map&gt;</a>要素が定義されない場合、指定したクラス全てがハンドラの対象となる</td>
+			</tr>
+			<tr>
+				<td>url</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のurlへのprefix</td>
+			</tr>
+			<tr>
+				<td>template_path</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のtemplateのベースパス</td>
+			</tr>
+			<tr>
+				<td>theme_path</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のテーマテンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>error_template</td>
+				<td>例外がキャッチされなかった場合に表示されるテンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>error_status</td>
+				<td>例外がキャッチされなかった場合のHTTPステータス</td>
+			</tr>
+			<tr>
+				<td>error_redirect</td>
+				<td>例外がキャッチされなかった場合にリダイレクトされるURL</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_map">&lt;map&gt;</a>
+			<a href="#xml_maps">&lt;maps&gt;</a>
+			<a href="#xml_var">&lt;var&gt;</a>
+			<a href="#xml_module">&lt;module&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_maps"></a>
+		<h3>&lt;maps&gt;</h3>
+		<p>
+			<a href="#xml_map">&lt;map&gt;</a>のグルーピング
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>class</td>
+				<td>&lt;map&gt;</a>要素へのFlowクラスを指定する</td>
+			</tr>
+			<tr>
+				<td>url</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のurlへのprefix</td>
+			</tr>
+			<tr>
+				<td>template_path</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のtemplateのベースパス</td>
+			</tr>
+			<tr>
+				<td>theme_path</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のテーマテンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>secure</td>
+				<td>httpsでアクセスするか(true, false) [<a href="#secure">説明</a>]</td>
+			</tr>
+			<tr>
+				<td>update</td>
+				<td><a href="#xml_map">&lt;map&gt;</a>要素のupdate属性(none, get, post, both)</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_map">&lt;map&gt;</a>
+			<a href="#xml_module">&lt;module&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_map"></a>
+		<h3>&lt;map&gt;</h3>
+		<p>
+			URLによるマッピングの定義
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>マップ名</td>
+			</tr>
+			<tr>
+				<td>url</td>
+				<td>URLのパターン</td>
+			</tr>
+			<tr>
+				<td>class</td>
+				<td>Flowクラスを指定する</td>
+			</tr>
+			<tr>
+				<td>method</td>
+				<td>実行するFlowクラスのメソッド名</td>
+			</tr>
+			<tr>
+				<td>template</td>
+				<td>テンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>redirect</td>
+				<td>リダイレクト先のURL</td>
+			</tr>
+			<tr>
+				<td>secure</td>
+				<td>httpsでアクセスするか(true, false) [<a href="#secure">説明</a>]</td>
+			</tr>
+			<tr>
+				<td>vars</td>
+				<td><a href="#xml_var">vars</a>を定義したxmlのパス</td>
+			</tr>
+			<tr>
+				<td>update</td>
+				<td>更新を許可するリクエストメソッド、動作はモジュールにより決定する (none, get, post, both)</td>
+			</tr>
+			<tr>
+				<td>theme_path</td>
+				<td>
+					テーマテンプレートのパス。<br />
+					定義されると実行するFlowクラスのメソッドで指定されたthemeによりテンプレートが切り替わります。
+				</td>
+			</tr>
+			<tr>
+				<td>error_template</td>
+				<td>例外がキャッチされなかった場合に表示されるテンプレートのパス</td>
+			</tr>
+			<tr>
+				<td>template_super</td>
+				<td>差し替える継承元テンプレートのパス</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_arg">&lt;arg&gt;</a>
+			<a href="#xml_module">&lt;module&gt;</a>
+			<a href="#xml_var">&lt;var&gt;</a>
+		</div>
+		
+		<a name="secure"></a>
+		<p></p>
+		<pre trans="true" class="tips">
+			http:// でアクセスされ、かつ!!!secure="true"!!!の場合に
+			!!!HTTP_X_FORWARDED_PORT!!!がセットされているか!!!HTTP_X_FORWARDED_PROTO!!!がセットされているか
+			!!!HTTP_X_FORWARDED_HOST!!!がセットされて!!!いない!!!場合にhttps://としリダイレクトします。
+		</pre>
+		<span style="font-size: x-small;"> ※内部のサーバ等へhttpでフォワードしている場合に適切な定義が行われていないと無限リダイレクト(302)に陥ります。</span>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_module"></a>
+		<h3>&lt;module&gt;</h3>
+		<p>
+			モジュールを指定する
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>class</td>
+				<td>クラスパッケージ</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_arg">&lt;arg&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_var"></a>
+		<h3>&lt;var&gt;</h3>
+		<p>
+			テンプレートへ渡す追加(上書き)の値、value属性が無い場合は要素値がvalueとなる。
+			ただし、class,methodが指定された場合はその結果がvalueとなる。その場合<a href="#xml_arg">&lt;arg&gt;</a>が引数として渡される
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>名前</td>
+			</tr>
+			<tr>
+				<td>class</td>
+				<td>実行するクラスパッケージ</td>
+			</tr>
+			<tr>
+				<td>method</td>
+				<td>実行するメソッド名</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_arg">&lt;arg&gt;</a>
+		</div>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="xml_arg"></a>
+		<h3>&lt;arg&gt;</h3>
+		<p>
+			value属性が無い場合は要素値がvalueとなる。
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>name</td>
+				<td>名前</td>
+			</tr>
+			<tr>
+				<td>value</td>
+				<td>値</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="xml_desc">
+		<a name="xml_invoke"></a>
+		<h3>&lt;invoke&gt;</h3>
+		<p>
+			指定の順番で実行する
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>属性</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>class</td>
+				<td>クラスパッケージ</td>
+			</tr>
+			<tr>
+				<td>method</td>
+				<td>実行するメソッド、staticメソッドではない場合にはclassがインスタンス化される</td>
+			</tr>
+			</tbody>
+		</table>
+		<h4>要素</h4>
+		<div>
+			<a href="#xml_result">&lt;result&gt;</a>
+			<a href="#xml_arg">&lt;arg&gt;</a>
+			<a href="#xml_module">&lt;module&gt;</a>
+		</div>
+	</div>
+
+	<div class="xml_desc">
+		<a name="xml_result"></a>
+		<h3>&lt;result&gt;</h3>
+		<p>
+			前回の結果をメソッドに渡す場合に<a href="#xml_arg">&lt;arg&gt;</a>の代わりとして使用する
+		</p>
+	</div>
+</rt:block>
+
+	

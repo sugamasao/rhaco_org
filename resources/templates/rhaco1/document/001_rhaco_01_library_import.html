@@ -1,0 +1,28 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>ライブラリの読み込み</h2>
+	<p>
+		rhaco では，ファイルの読み込みをラップしていますので，require や include は使用しません。<br />
+		また，ディレクトリの区切りを　"." で指定します。
+	</p>
+
+	<div class="xml_desc">
+		<h3>rhaco 標準ライブラリ</h3>
+		<div class="notice">インストールした rhaco ディレクトリからの相対パスで行います</div>
+		<pre trans="true">
+		&lt;?php
+		// /path/to/rhaco/io/File.php を読み込む
+		Rhaco::import("io.File");
+		</pre>
+	</div>
+
+	<div class="xml_desc">
+		<h3>アプリケーションライブラリ</h3>
+		<div class="notice">インストールした rhaco ディレクトリからの相対パスで行います</div>
+		<pre trans="true">
+		&lt;?php
+		// /blog/library/view/Blog.php を読み込む
+		Rhaco::import("view.Blog");
+		</pre>
+	</div>
+</rt:block>

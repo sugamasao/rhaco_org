@@ -1,0 +1,159 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>クラスドキュメントを表示する(rhaco2.php)</h2>
+	<p>
+		Setupの機能であるmanを使用しクラスドキュメントを表示する
+	</p>
+	
+	<div class="filename">libs/abc/def/Sample.php</div>
+	<pre trans="true">
+		&lt;?php
+		/**
+		 * クラスのコメント
+		 * !!!@const string $str 結合される文字列!!!
+		 * @var string $abc
+		 * @var integer $def
+		 */
+		class Sample extends Object{
+			public $abc; !!!# パブリック!!!
+			protected $def; !!!# プロテクテッド!!!
+			private $ghi; # プライベート
+			
+			/**
+			 * パブリックメソッド
+			 * @param string $hoge なにか文字列
+			 * @return string 返す文字列
+			 */
+			public function p_method($hoge){
+				!!!/**!!!
+				!!! * 文字列に何かするモジュール!!!
+				!!! * @param string $hoge!!!
+				!!! */!!!
+				!!!$this->call_module("xyz",$hoge);!!!
+				return $hoge;
+			}
+			
+			/**
+			 * プロテクテッドメソッド
+			 * @param string $hoge なにか文字列
+			 * @return string 返す文字列
+			 */	
+			protected function pr_method($hoge){
+				return !!!module_const("str")!!!.$hoge;
+			}
+			
+			/**
+			 * スタティックパブリックメソッド
+			 */
+			static public function sp_method(){
+			}
+		}
+	</pre>
+	<p>
+		&nbsp;
+	</p>
+	
+	<h3>クラスの説明を表示する</h3>
+	<pre trans="true">
+		> php rhaco2.php !!!-man abc.def.Sample!!!
+	
+		class Sample:
+		 Description:
+		   クラスのコメント
+		
+		  Static methods defined here:
+		    !!!sp_method!!!        : スタティックパブリックメソッド
+		
+		  Methods defined here:
+		    a                : アノテーションの値を取得/設定
+		    add              : 加算
+		    add_module       : モジュールを追加する
+		    add_object       : objectをmixinさせる
+		    call_module      : モジュールの実行
+		    copy_module      : モジュールをコピーする
+		    cp               : 値をコピーする
+		    div              : 除算
+		    get_called_class : クラスアクセスの場合にクラス名を返す
+		    has_module       : モジュールがあるか
+		    hash             : ハッシュとしての値を返す
+		    mul              : 乗算
+		    o                : 追加されたモジュールを参照する
+		    !!!p_method!!!         : パブリックメソッド
+		    prop_values      : get可能なオブジェクトのプロパティを返す
+		    props            : プロパティ名を返す
+		    str              : 文字列表現を返す
+		    sub              : 減算
+		
+		  Properties defined here:
+		    !!!abc              : (string) パブリック!!!
+		    !!!def              : (integer) プロテクテッド!!!
+		
+		  Modules defined here:
+		    !!!xyz!!!              : 文字列に何かするモジュール
+		
+		  (Protected) Methods defined here:
+		    !!!pr_method!!!        : プロテクテッドメソッド
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>メソッドの説明を表示する</h3>
+	<pre trans="true">
+		> php rhaco2.php !!!-man abc.def.Sample -m p_method!!!
+		
+		class Sample in method p_method:
+		 Description:
+		   パブリックメソッド
+		
+		 Parameter:
+		    hoge : [string]  なにか文字列
+		
+		 Return:
+		   [string]  返す文字列
+	</pre>
+	<p>&nbsp;</p>
+
+	<h3>スタティックメソッドの説明を表示する</h3>
+	<pre trans="true">
+		> php rhaco2.php !!!-man abc.def.Sample -m sp_method!!!
+		
+		class Sample in method sp_method:
+		 Description:
+		   スタティックパブリックメソッド
+		
+		 Parameter:
+	</pre>
+	<p>&nbsp;</p>
+	
+	<h3>モジュールの説明を表示する</h3>
+	<pre trans="true">
+		> php rhaco2.php !!!-man abc.def.Sample -m xyz!!!
+
+		class Sample in method xyz:
+		 Description:
+		   文字列に何かするモジュール
+		
+		 Parameter:
+		   &hoge : [string] 
+	</pre>
+	<p>&nbsp;</p>
+
+	<pre trans="true" class="tips">
+		同様にvendorsやcoreのクラスドキュメントを表示する事もできます。
+		> php rhaco2.php !!!-man Flow!!!
+		> php rhaco2.php !!!-man org.rhaco.storage.db.Dao!!!
+	</pre>
+	<p>&nbsp;</p>
+
+
+	<h3>モジュール定義変数の一覧を表示する</h3>
+	<pre trans="true">
+		> php rhaco2.php !!!-def!!!
+
+		Define list:
+		    [-] abc.def.Sample@str : (string) 結合される文字列
+	</pre>
+	<p>&nbsp;</p>
+	
+	
+</rt:block>
+

@@ -1,0 +1,176 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>setup.php</h2>
+	<p>
+		rhaco はセットアップフレームワークとも呼ばれています．これは，rhaco に附属している setup.php から，モデルの生成，データベース操作，テスト等々開発に必要な作業を GUI で提供しているからです．<br />
+		実際にどのような機能があるのか，見てみます．
+	</p>
+
+	<div class="xml_desc">
+		<h3>settings</h3>
+		<p>
+			アプリケーション設定を行います．次の設定が行えます
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>機能</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>アプリケーションの初期処理</td>
+				<td>mod_rewrite の設定を記述した .htaccess を作成する</td>
+			</tr>
+			<tr>
+				<td>ログ設定</td>
+				<td>ログの出力や表示の設定</td>
+			</tr>
+			<tr>
+				<td>キャッシュ</td>
+				<td>テンプレートやフィードのキャッシングの切り替え．有効期限の設定を行う</td>
+			</tr>
+			<tr>
+				<td>データベースの設定</td>
+				<td>project.xml で記述したデータベースの設定を行う</td>
+			</tr>
+			<tr>
+				<td>パス</td>
+				<td>アプリケーションの設置箇所や URL の設定を行う</td>
+			</tr>
+			<tr>
+				<td>全体</td>
+				<td>rhaco の設置パスやインストールサーバのパスを確認する</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>database</h3>
+		<p>
+			簡易データベース管理ツール
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>機能</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>project.xml からテーブルの作成</td>
+			</tr>
+			<tr>
+				<td>上記の SQL ダウンロード</td>
+			</tr>
+			<tr>
+				<td>project.xml に記述した初期データの作成</td>
+			</tr>
+			<tr>
+				<td>レコードの CRUD</td>
+			</tr>
+			<tr>
+				<td>query 発行</td>
+			</tr>
+			<tr>
+				<td>テーブル削除</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>i18n</h3>
+		<p>
+			国際化ツール
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>機能</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>pot の作成</td>
+			</tr>
+			<tr>
+				<td>pot から rhaco 用の PHP ファイル作成</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>i18n</h3>
+		<p>
+			国際化ツール
+		</p>
+		<table>
+			<thead>
+			<tr>
+				<th>機能</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>pot の作成</td>
+			</tr>
+			<tr>
+				<td>pot から rhaco 用の PHP ファイル作成</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>test</h3>
+		<p>
+			テスト
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>document</h3>
+		<p>
+			アプリケーションのクラスライブラリのドキュメントを表示．
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>phpinfo</h3>
+		<p>
+			phpinfo()の出力結果を見る
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>rhacodoc</h3>
+		<p>
+			rhaco 自身のドキュメントを表示
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>setup member</h3>
+		<p>
+			setup.php を実行するのに認証をかける
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>member</h3>
+		<p>
+			即席認証用のメンバー管理
+		</p>
+	</div>
+	
+	<div class="xml_desc">
+		<h3>install</h3>
+		<p>
+			ライブラリのインストール
+		</p>
+	</div>
+</rt:block>

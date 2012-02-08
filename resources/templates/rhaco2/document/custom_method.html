@@ -1,0 +1,108 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>Objectのカスタマイズ</h2>
+	<p>
+		Objectを継承したクラスに特殊メソッドを定義することでObjectの挙動をカスタマイズする事ができます。<br />
+	</p>
+
+	<div class="xml_desc">
+		<a name="method"></a>
+		<h3>特殊メソッド ( protected )</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>メソッド名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>__hash__</td>
+				<td>$obj-&gt;hash()の拡張</td>
+			</tr>
+			<tr>
+				<td>__cp__</td>
+				<td>$obj-&gt;cp()の拡張</td>
+			</tr>
+			<tr>
+				<td>__new__</td>
+				<td>コンストラクタの拡張</td>
+			</tr>
+			<tr>
+				<td>__init__</td>
+				<td>インスタンス作成の拡張</td>
+			</tr>
+			<tr>
+				<td>__del__</td>
+				<td>デストラクタの拡張</td>
+			</tr>
+			<tr>
+				<td>__str__</td>
+				<td>オブジェクトの文字列表現の拡張</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div class="xml_desc">
+		<a name="static_method"></a>
+		<h3>特殊メソッド ( static public )</h3>
+		<table>
+			<thead>
+			<tr>
+				<th>メソッド名</th>
+				<th>説明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>__import__</td>
+				<td>import時に実行される初期処理</td>
+			</tr>
+			<tr>
+				<td>__shutdown__</td>
+				<td>アプリケーションの終了時に実行される終了処理</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<h3>ex..</h3>
+	<pre trans="true">
+		/**
+		 * @var integer $id
+		 */
+		class Abc extends Object{
+			static private $count = 0;
+			protected $id;
+
+			protected function __init__(){
+				self::$count++;
+				$this->id = self::$count;
+			}
+			protected function __str__(){
+				return $this->id();
+			}
+			protected function __add__($arg){
+				$this->id += ((int)$arg * 10);
+			}
+		}
+		
+		$obj = new Abc();
+		println($obj);
+		$obj = new Abc();
+		println($obj);
+		$obj = new Abc();
+		println($obj);
+		println($obj->add(4));
+	</pre>
+	<h4>結果</h4>
+	<pre trans="true">
+		1
+		2
+		3
+		43
+	</pre>
+</rt:block>
+
+	

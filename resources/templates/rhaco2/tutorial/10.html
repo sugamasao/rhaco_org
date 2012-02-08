@@ -1,0 +1,49 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>&lt;map&gt;のURLをhttpsとする</h2>
+	<p>
+		&lt;map name="def"&gt;のURLをhttpsにする
+	</p>
+
+	<div class="filename">index.php</div>
+	<pre trans="true">
+		<?php require dirname(__FILE__)."/rhaco2.php"; app(); ?>
+		<app>
+			<handler>
+				<map name="abc" template="index.html" />
+				<map name="def" template="index.html" !!!secure="true"!!! />
+			</handler>
+		</app>
+	</pre>
+
+	<div class="filename">resources/templates/index.html</div>
+	<pre trans="true">
+		<html>
+		<body>
+			<a href="{$t.map_url('abc')}">abc</a>
+			<a href="{$t.map_url('def')}">def</a>
+		</body>
+		</html>
+	</pre>
+
+	<div class="filename">結果</div>
+	<pre trans="true">
+		<html>
+		<body>
+			<a href="!!!http://!!!localhost/abc">abc</a>
+			<a href="!!!https://!!!localhost/def">def</a>
+		</body>
+		</html>
+	</pre>	
+
+	<pre trans="true" class="tips">
+		開発中等、httpsが利用できない場合は __settings__.php や __common_***__.php で
+		!!!Flow::config_secure(false)!!! とすることで!!!http://!!!になります。
+	</pre>
+
+	<pre trans="true" class="tips">			
+		リバースプロキシ等で内部的にhttp://〜でアクセスされた場合にhttps://〜へリダイレクト
+		されないようにするには、!!!X-Forwarded-Host!!!ヘッダを定義する必要があります。
+	</pre>
+</rt:block>
+

@@ -1,0 +1,33 @@
+<rt:extends href="../index.html" />
+<rt:block name="content">
+	<h2>パッケージ</h2>
+	<p>
+		パッケージとはライブラリのクラスを表す場所を示したものです。
+	</p>
+
+	<div class="xml_desc">
+		<a name="package_m"></a>
+		<h3>リソース等を内包するパッケージ</h3>
+		<p>
+			libs/org/rhaco/net/xml/Atom/Atom.php<br />
+			フォルダ名と同名のファイルがある場合にフォルダ以下をパッケージとしてあつかいます。<br />
+			これを読み込む場合は以下のようにします。
+		</p>
+		<pre>
+import("org.rhaco.net.xml.Atom");
+		</pre>
+	</div>	
+
+	<div class="xml_desc">
+		<a name="package_s"></a>
+		<h3>リソース等を内包しないパッケージ</h3>
+		<p>		
+			libs/org/rhaco/io/log/LogFile.php<br />
+			これを読み込む場合は以下のようにします。
+		</p>
+		<pre>
+import("org.rhaco.io.log.LogFile");
+		</pre>
+	</div>
+</rt:block>
+	
