@@ -12,7 +12,7 @@ class Formatter{
 					$value = \org\rhaco\lang\Text::plain($b->value());
 					$value = preg_replace("/<(rt:.+?)>/ms","&lt;\\1&gt;",$value);
 					$value = str_replace(array('<php>','</php>'),array('<?php','?>'),$value);
-					$value = str_replace(array("<",">","'","\""),array("&lt;","&gt;","&#039;","&quot;"),$value);
+					$value = str_replace(array("<",">"),array("&lt;","&gt;","&#039;","&quot;"),$value);
 					$value = preg_replace("/!!!(.+?)!!!/ms","<code>\\1</code>",$value);
 					$value = str_replace("\t","&nbsp;&nbsp;",$value);
 					$b->value($value);
@@ -20,6 +20,7 @@ class Formatter{
 				}
 			}
 		}
+		$src = str_replace('<table>','<table class="bordered-table zebra-striped">',$src);
 	}
 	public function after_exec_template(&$src){
 		$src = str_replace(array('__RTD__','__RTE__'),array('$','='),$src);

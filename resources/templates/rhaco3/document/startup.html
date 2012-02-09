@@ -1,19 +1,10 @@
 <rt:extends href="../index.html" />
 <rt:block name="content">
 	<h2>スタートアップ</h2>
-	<p>
-	</p>
-
-	<div class="xml_desc">
-		<h3>rhaco3のダウンロード</h3>
-		<p>
-			<a href="{$t.map_url('download','core/rhaco3.php')}">こちら</a>よりダウンロードし解凍します。配置場所はどこでもかまいません。
-		</p>
-	</div>
 	
 	<p>
 		ライブラリのインストールやアプリケーションのセットアップをrhaco3.phpで行うことができます。<br />
-		主要な機能の他にライブラリが追加されるとセットアップの機能が増える場合があります。
+		主要な機能の他にライブラリが追加されると機能が増える場合があります。
 	</p>
 	<pre trans="true" class="tips">
 	php rhaco3.php
@@ -21,7 +12,7 @@
 	<p></p>
 		
 	<div class="xml_desc">
-		<h3>標準セットアップ</h3>
+		<h3>定義済みのコマンド</h3>
 		<p>
 			オプションを指定せずにrhaco3.phpを実行すると一覧が表示されます。
 		</p>
@@ -44,6 +35,10 @@
 			<tr>
 				<td>search</td>
 				<td>ライブラリの検索</td>
+			</tr>
+			<tr>
+				<td>settings</td>
+				<td>__settings__.phpを作成する</td>
 			</tr>
 			<tr>
 				<td>htaccess</td>

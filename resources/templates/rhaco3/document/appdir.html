@@ -4,21 +4,26 @@
 	<p>
 		標準的な構成は以下になりますが、それぞれ設定により別の場所に配置する事が可能です。
 	</p>
-
-	<div class="xml_desc">
-		<a name="dir"></a>
-		<ul class="dir">
-			<li>libs/ - ライブラリ群</li>
-			<li>resources/</li>
-			<li>
-				<ul>
-					<li>media/ - <span>画像ファイルやCSSファイル等</span></li>
-					<li><a href="{$t.map_url('rhaco3_document','template.html')}">templates/</a> - <span>html等のテンプレートファイル</span></li>
-				</ul>
-			</li>
-			<li>__settings__.php - <span>設定ファイル</span></li>
-			<li><a href="{$t.map_url('rhaco3_document','entry.html')}">index.php</a> - <span>エントリーポイント</span></li>
-		</ul>
-	</div>
+	
+	<dl>
+		<dd>commons <span class="label">モード毎の共通設定ファイル</span></dd>
+		<dd>libs <span class="label">ライブラリ群</span></dd>
+		<dd>
+			<dl>
+				<dd>_vendors <span class="label">外部ライブラリ</span></dd>
+				<dd>_extlibs <span class="label">PEAR等</span></dd>
+			</dl>
+		</dd>
+		<dd>resources <span class="label">リソースファイル</span></dd>
+		<dd>
+			<dl>
+				<dd>media/ <span class="label">画像ファイルやCSSファイル等</span></dd>
+				<dd><a href="{$t.map_url('rhaco3_document','documnet/template.html')}">templates/</a> <span class="label">html等のテンプレートファイル</span></dd>
+			</dl>
+		</dd>
+		<dd>tests <span class="label">テストファイル</span></dd>
+		<dd>__settings__.php - <span class="label">設定ファイル</span></dd>
+		<dd><a href="{$t.map_url('rhaco3_document','document/entry.html')}">index.php</a> <span class="label">エントリーポイント</span></dd>
+	</dl>
 </rt:block>
 	

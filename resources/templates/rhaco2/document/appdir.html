@@ -5,37 +5,34 @@
 		標準的な構成は以下になりますが、それぞれ設定により別の場所に配置する事が可能です。
 	</p>
 
-	<div class="xml_desc">
-		<a name="dir"></a>
-		<ul class="dir">
-			<li>libs/ - ライブラリ群</li>
-			<li>resources/</li>
-			<li>
-				<ul>
-					<li>locale/ - <span>国際化ファイル群</span></li>
-					<li>
-						<ul>
-							<li>messages/ - <span>国際化メッセージファイル(po,mo)群</span></li>
-						</ul>
-					</li>
-					<li>media/ - <span>画像ファイルやCSSファイル等</span></li>
-					<li><a href="{$t.map_url('rhaco2_document','template.html')}">templates/</a> - <span>html等のテンプレートファイル</span></li>
-					<li><a href="{$t.map_url('rhaco2_document','app.html')}#xml_var">vars/</a> - <span>varsを定義したXMLファイル</span></li>
-				</ul>
-			</li>
-			<li>vendors/ - <span>外部のライブラリ群</span></li>
-			<li>work/ - <span>ワーキングファイル群</span></li>
-			<li>
-				<ul>
-					<li>log/ - <span>ログファイル群</span></li>
-					<li>store/ - <span>キャッシュファイル群</span></li>
-				</ul>
-			</li>
-			<li>__common__.php - <span>共通設定ファイル</span></li>
-			<li>__settings__.php - <span>設定ファイル</span></li>
-			<li><a href="{$t.map_url('rhaco2_document','entry.html')}">index.php</a> - <span>エントリーポイント</span></li>
-		</ul>
-	</div>
+	<dl>
+		<dd>libs <span class="label">ライブラリ群</span></dd>
+		<dd>resources</dd>
+		<dd>
+			<dl>
+				<dd>locale <span class="label">国際化ファイル群</span></dd>
+				<dd>
+					<dl>
+						<dd>messages <span class="label">国際化メッセージファイル(po,mo)群</span></dd>
+					</dl>
+				</dd>
+				<dd>media <span class="label">画像ファイルやCSSファイル等</span></dd>
+				<dd><a href="{$t.map_url('rhaco2_document','document/template.html')}">templates</a> <span class="label">html等のテンプレートファイル</span></dd>
+				<dd><a href="{$t.map_url('rhaco2_document','document/app.html')}#xml_var">vars</a> <span class="label">varsを定義したXMLファイル</span></dd>
+			</dl>
+		</dd>
+		<dd>vendors <span class="label">外部のライブラリ群</span></dd>
+		<dd>work <span class="label">ワーキングファイル群</span></dd>
+		<dd>
+			<dl>
+				<dd>log <span class="label">ログファイル群</span></dd>
+				<dd>store <span class="label">キャッシュファイル群</span></dd>
+			</dl>
+		</dd>
+		<dd>__common__.php <span class="label">共通設定ファイル</span></dd>
+		<dd>__settings__.php <span class="label">設定ファイル</span></dd>
+		<dd><a href="{$t.map_url('rhaco2_document','document/entry.html')}">index.php</a> <span class="label">エントリーポイント</span></dd>
+	</dl>
 
 </rt:block>
 	
