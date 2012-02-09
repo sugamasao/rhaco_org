@@ -2,8 +2,8 @@
 include_once('rhaco3_min.php');
 $flow = new \org\rhaco\Flow();
 $flow->output(array(''
-//,'nomatch_redirect'=>'/'
-//,'error_redirect'=>''
+,'nomatch_redirect'=>'/'
+,'error_redirect'=>''
 ,'modules'=>array(
 	'flow.module.Formatter',
 	'org.rhaco.flow.module.HtmlFilter',
